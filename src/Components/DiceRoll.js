@@ -10,6 +10,7 @@ function DiceRoll(props){
         className={`die die-${roll.d}`} 
         key={i}
         tabIndex="0"
+        style={{cursor: `url(${process.env.PUBLIC_URL}/trash-2.svg), not-allowed;`}}
         onContextMenu={(e) => {
           e.preventDefault();
           removeADie(roll.id);
