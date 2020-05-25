@@ -27,6 +27,8 @@
   align-items: center;
   color: $color-dark;
 
+  animation: .5s ease-in 0s 1 dieRoll;
+
   cursor: url(/trash-2.svg), not-allowed;
   user-select: none;
     &:focus,

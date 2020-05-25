@@ -13,15 +13,35 @@
 @keyframes flyInLeft{
   0% {
     opacity: 0;
-            transform: translateX(-100rem);
+    transform: translateX(-100rem);
   }
 
   80% {
-            transform: translateX(.5rem);
+    transform: translateX(.5rem);
   }
 
   100% {
     opacity: 1;
-            transform: translate(0);
+    transform: translate(0);
+  }
+}
+
+@keyframes dieRoll {
+  0% {
+    opacity: 0;
+    transform: translateY(-24vh);
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+
+  16% { transform: translateY(-20vh) rotateX(270deg) rotateY(90deg) rotateZ(0deg); }
+  33% { transform: translateY(-16vh) rotateX(360deg) rotateY(90deg) rotateZ(180deg); }
+  50% { transform: translateY(-12vh) rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+  66% { transform: translateY(-8vh) rotateX(270deg) rotateY(360deg) rotateZ(180deg); }
+  82% { transform: translateY(-4vh) rotateX(0deg) rotateY(180deg) rotateZ(270deg); }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0rem) rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+    transform: scale(1);
   }
 }

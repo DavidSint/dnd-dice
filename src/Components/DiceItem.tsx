@@ -10,6 +10,7 @@ function DiceItem(props: IDiceItemProps) {
       tabIndex={0}
       onClick={() => {
         roller([die]);
+        (document.activeElement as HTMLElement).blur()
       }
     }>
       <img src={`${process.env.PUBLIC_URL}/dice/d${die}.png`} alt={`Roll a d${die}`} className="dice-image"/>

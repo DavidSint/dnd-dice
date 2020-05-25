@@ -81,10 +81,9 @@ function App() {
           <div className="filterScroller">
             {
               savedRolls.map((savedRoll: ISavedRoll, i: number) => {
-                return <div
+                return <button
                   className="filterScroller-item" 
                   key={i}
-                  role="button"
                   tabIndex={0}
                   onClick={ () => {
                     resetAndRoll(savedRoll.dice, savedRoll.mod);
@@ -95,14 +94,14 @@ function App() {
                   }}
                 >
                   {savedRoll.name}
-                </div>
+                </button>
               })
             }
           </div>
           <div className="diceTotal">
             { rolls ? <DiceTotal rolls={rolls} mod={mod}/>: "" }
           </div>
-          <div className="diceGrid">
+          <div className="diceGrid" >
             { rolls ? <DiceRoll rolls={rolls} removeADie={removeADie}  /> : "" }
           </div>
           <div className="main-footer" tabIndex={-1}>
@@ -120,7 +119,7 @@ function App() {
             <button 
               className="roll"
               tabIndex={0}
-              onClick={ () =>{
+              onClick={ () => {
                 resetAndRoll(rolls.map(roll => roll.d), mod);
               }}
             >
