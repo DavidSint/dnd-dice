@@ -14,7 +14,11 @@
   border-bottom: 1px solid $color-dark;
   color: $color-light;
 
-  &-text{
+  &-text {
     justify-self: center;
+
+    &--pre {
+      font-weight: 400;
+    }
   }
 }

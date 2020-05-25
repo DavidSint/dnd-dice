@@ -73,7 +73,7 @@ function App() {
     <>
       <header className="header">
         <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="Dice logo" className="header-logo"></img>
-        <h1 className="header-text h1">D&D Dice</h1>
+        <h1 className="header-text h1">D&D <span className="highlight">Dice</span></h1>
       </header>
 
       <div className="container">
@@ -142,7 +142,7 @@ function App() {
       </div>
 
       <footer className="footer">
-        <code className="footer-text">Made by David Sint</code>
+        <code className="footer-text"> <span className="footer-text--pre">Made by</span> <span className="highlight">David Sint</span></code>
       </footer>
     </>
   );
