@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "04efcab7a51f487e8546cdf6bace6865",
+    "revision": "be39988d914c07e9186cc80470c33e53",
     "url": "/dnd-dice/index.html"
   },
   {
-    "revision": "ff03f95820ed603e0f76",
+    "revision": "453474a323123218c6c9",
     "url": "/dnd-dice/static/css/main.31f36077.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dnd-dice/static/js/2.3e8e42e0.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ff03f95820ed603e0f76",
-    "url": "/dnd-dice/static/js/main.77c8c919.chunk.js"
+    "revision": "453474a323123218c6c9",
+    "url": "/dnd-dice/static/js/main.e15cc3e0.chunk.js"
   },
   {
     "revision": "b0f14429ae4d07e820dd",

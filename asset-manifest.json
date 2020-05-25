@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/dnd-dice/static/css/main.31f36077.chunk.css",
-    "main.js": "/dnd-dice/static/js/main.77c8c919.chunk.js",
-    "main.js.map": "/dnd-dice/static/js/main.77c8c919.chunk.js.map",
+    "main.js": "/dnd-dice/static/js/main.e15cc3e0.chunk.js",
+    "main.js.map": "/dnd-dice/static/js/main.e15cc3e0.chunk.js.map",
     "runtime-main.js": "/dnd-dice/static/js/runtime-main.f5358443.js",
     "runtime-main.js.map": "/dnd-dice/static/js/runtime-main.f5358443.js.map",
     "static/js/2.3e8e42e0.chunk.js": "/dnd-dice/static/js/2.3e8e42e0.chunk.js",
     "static/js/2.3e8e42e0.chunk.js.map": "/dnd-dice/static/js/2.3e8e42e0.chunk.js.map",
     "index.html": "/dnd-dice/index.html",
-    "precache-manifest.6193e0e81893329b85ab89b7b7213d40.js": "/dnd-dice/precache-manifest.6193e0e81893329b85ab89b7b7213d40.js",
+    "precache-manifest.154be89b86801e6e9f5b794d45894f85.js": "/dnd-dice/precache-manifest.154be89b86801e6e9f5b794d45894f85.js",
     "service-worker.js": "/dnd-dice/service-worker.js",
     "static/css/main.31f36077.chunk.css.map": "/dnd-dice/static/css/main.31f36077.chunk.css.map",
     "static/js/2.3e8e42e0.chunk.js.LICENSE.txt": "/dnd-dice/static/js/2.3e8e42e0.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.f5358443.js",
     "static/js/2.3e8e42e0.chunk.js",
     "static/css/main.31f36077.chunk.css",
-    "static/js/main.77c8c919.chunk.js"
+    "static/js/main.e15cc3e0.chunk.js"
   ]
 }
