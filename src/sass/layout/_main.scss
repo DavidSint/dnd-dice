@@ -1,0 +1,30 @@
+.container{
+  display: grid;
+  grid-template-columns: minmax(2rem, 20vw) minmax(80vw, 1fr) minmax(2rem, 20vw);
+  grid-template-rows: 3rem 1fr 3rem;
+
+  justify-content: center;
+  align-content: center;
+
+  height: calc(100vh - 12.8rem);  
+}
+
+.main {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  background-color: $color-bg;
+  box-shadow: 0 1rem 4rem $color-dark;
+
+  display: grid;
+  grid-template-rows: max-content 1rem minmax(0, 1fr) max-content;
+
+  min-height: 0;
+  min-width: 0;
+  
+  &-footer {
+    border-top: .2rem solid $color-tertiary;
+    display: flex;
+    justify-content: space-between;
+    overflow-y: hidden;
+  }
+}

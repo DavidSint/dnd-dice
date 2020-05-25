@@ -1,0 +1,23 @@
+*, 
+*::after, 
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  // This defines 1rem
+  font-size: 62.5%; // 1rem = 10px (10/16px = 62.5%)
+}
+
+body {
+  box-sizing: border-box;
+
+  background-color: $color-light;
+}
+
+::selection {
+  background-color: $color-secondary;
+  color: $color-light;
+}

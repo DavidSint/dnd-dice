@@ -1,0 +1,48 @@
+.dice{
+  display: flex;
+  height: auto;
+  list-style: none;
+  text-align: center;
+  justify-content: flex-start;
+
+  &-item {
+    display: block;
+    color: $color-dark;
+    cursor: pointer;
+    height: 5rem;
+
+    transition: transform .2s;
+    position: relative;
+
+    animation: .5s linear 0s 1 flyInLeft;
+
+    user-select: none;
+    &:focus,
+    &:hover {
+      outline: none;
+      transform: scale(1.1);
+    }
+
+    &:active{
+      transform: scale(1.05);
+    }
+  }
+
+  &-image {
+    height: 100%;
+  }
+  
+  &-text {
+      z-index: 10;
+      position: absolute;
+      font-weight: 700;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: $color-light;
+
+      &--d4{
+        top: 60%;
+      }
+  }
+}

@@ -1,0 +1,48 @@
+.diceTotal{
+  color: $color-light;
+  background-color: $color-bg;
+  z-index: 10;
+  display: flex;
+  justify-content: space-around;
+  height: 3rem;
+}
+
+.diceGrid {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: center;
+
+  overflow-y: auto;  /* NEW */
+  min-width: 0;
+}
+
+.die{
+  background-color: $color-secondary;
+  padding: 2rem;
+  line-height: 1.1;
+  margin: 1rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  color: $color-dark;
+
+  cursor: url(/trash-2.svg), not-allowed;
+  user-select: none;
+    &:focus,
+    &:hover {
+      outline: none;
+      transform: scale(1.1);
+    }
+
+    &:active{
+      transform: scale(1.05);
+    }
+  
+  &-result{
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+    color: $color-light;
+  }
+}

@@ -1,0 +1,25 @@
+.header {
+  display: flex; 
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 5rem;
+  
+  margin: 0rem 0rem;
+  border-top: .1rem solid $color-bg;
+  padding: 3rem 25vw;
+  background-color: $color-bg;
+  border-bottom: .3rem solid $color-tertiary;
+
+  &-logo {
+    display: inline-block;
+    height: 5rem;
+    width: auto;
+  }
+
+  &-text{
+    margin-left: 2rem;
+    justify-self: center;
+  }
+}

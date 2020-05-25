@@ -1,0 +1,20 @@
+.footer {
+  display: flex; 
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 5rem;
+  overflow: hidden;
+  
+  margin: 0;
+  border-top: .3rem solid $color-tertiary;
+  padding: 3rem 25vw;
+  background-image: linear-gradient($color-bg, $color-dark);
+  border-bottom: 1px solid $color-dark;
+  color: $color-light;
+
+  &-text{
+    justify-self: center;
+  }
+}

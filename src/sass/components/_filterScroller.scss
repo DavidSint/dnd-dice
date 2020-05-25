@@ -1,0 +1,37 @@
+.filterScroller{
+  display: flex;
+  height: auto;
+  // overflow-y: scroll;
+  overflow-y: hidden;
+  list-style: none;
+  text-align: center;
+  justify-content: center;
+
+  border-bottom: .2rem solid $color-tertiary;
+
+  &-item {
+    display: block;
+    padding: 0.5rem 1.5rem;
+    margin: 1rem 1rem;
+    background-color: $color-primary;
+    border-radius: 2.5rem;
+    color: $color-dark;
+    box-shadow: 0 1rem 2rem rgba($color-tertiary, 0.3);
+    cursor: pointer;
+    transition: transform .2s;
+    animation: .5s ease-in 0s 1 expand;
+
+    white-space: nowrap;
+
+    user-select: none;
+    &:focus,
+    &:hover {
+      outline: none;
+      transform: scale(1.1);
+    }
+
+    &:active{
+      transform: scale(1.05);
+    }
+  }
+}
