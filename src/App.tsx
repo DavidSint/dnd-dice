@@ -3,16 +3,17 @@ import getRandom from './helpers/random';
 import DiceItem from './Components/DiceItem';
 import DiceRoll from './Components/DiceRoll';
 import DiceTotal from './Components/DiceTotal';
+import { IRoll, ISavedRoll } from "./common/types";
 
-const dice = [4,6,8,10,12,20,100];
+const dice: number[] = [4,6,8,10,12,20,100];
 
-function usePersistedState(key, defaultValue) {
+function usePersistedState(key: string, defaultValue: any) {
   const [state, setState] = useState(
     () => {
-      try { 
-        return JSON.parse(localStorage.getItem(key)) || defaultValue 
+      try {
+        return JSON.parse(localStorage.getItem(key)!) || defaultValue;
       } catch { 
-        return defaultValue
+        return defaultValue;
       }
     }
   );
@@ -24,11 +25,11 @@ function usePersistedState(key, defaultValue) {
 
 function App() {
   const [savedRolls, setSavedRolls] = usePersistedState('savedRolls', []);
-  const [rolls, setRolls] = useState([]);
+  const [rolls, setRolls] = useState<IRoll[]>([]);
   const [mod, setMod] = useState(0);
 
-  const rollDice = (dice) => {
-    const [...arr] = rolls;
+  const rollDice = (dice: number[]) => {
+    const [...arr]: Array<IRoll> = rolls;
     dice.forEach(
       die => {
         const newRoll = getRandom(die);
@@ -42,8 +43,8 @@ function App() {
     )
   }
 
-  const resetAndRoll = (dice, modifier) => {
-    const arr = [];
+  const resetAndRoll = (dice: number[], modifier: number) => {
+    const arr: IRoll[] = [];
     dice.forEach(
       die => {
         const newRoll = getRandom(die);
@@ -58,13 +59,13 @@ function App() {
     )
   };
 
-  const removeADie = (id) => {
+  const removeADie = (id: string) => {
     const [...arr] = rolls;
     setRolls(arr.filter((die) => die.id !== id));
   }
 
-  const removeASave = (id) => {
-    const [...arr] = savedRolls;
+  const removeASave = (id: string) => {
+    const [...arr]: Array<IRoll> = savedRolls;
     setSavedRolls(arr.filter((save) => save.id !== id));
   }
 
@@ -79,12 +80,12 @@ function App() {
         <main className="main">
           <div className="filterScroller">
             {
-              savedRolls.map((savedRoll, i) => {
+              savedRolls.map((savedRoll: ISavedRoll, i: number) => {
                 return <div
                   className="filterScroller-item" 
                   key={i}
-                  role="button" 
-                  tabIndex="0"
+                  role="button"
+                  tabIndex={0}
                   onClick={ () => {
                     resetAndRoll(savedRoll.dice, savedRoll.mod);
                   }}
@@ -104,12 +105,12 @@ function App() {
           <div className="diceGrid">
             { rolls ? <DiceRoll rolls={rolls} removeADie={removeADie}  /> : "" }
           </div>
-          <div className="main-footer" tabIndex="-1">
+          <div className="main-footer" tabIndex={-1}>
             <div className="dice">
               {dice.map((die, i) => <DiceItem die={die} key={i} roller={rollDice} />)}
             </div>
             <div className="modifier">
-            <button className="mod" tabIndex="0" onClick={() => {
+            <button className="mod" tabIndex={0} onClick={() => {
               const modifier = prompt("Please enter a modifier");
               if (modifier){
                 setMod(parseInt(modifier, 10))
@@ -118,14 +119,14 @@ function App() {
             </div>
             <button 
               className="roll"
-              tabIndex="0"
+              tabIndex={0}
               onClick={ () =>{
                 resetAndRoll(rolls.map(roll => roll.d), mod);
               }}
             >
               Roll
             </button>
-            <button className="save" tabIndex="0"onClick={() => {
+            <button className="save" tabIndex={0}onClick={() => {
               const [...arr] = savedRolls;
               const name = prompt("Please enter the name");
               if (name) {

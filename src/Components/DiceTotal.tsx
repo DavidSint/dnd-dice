@@ -1,6 +1,8 @@
 import React from 'react';
+import { IDiceTotalProps } from '../common/types';
 
-function DiceTotal(props){
+
+function DiceTotal(props: IDiceTotalProps){
   const { rolls, mod } = props;
   if (rolls.length>0) {
     return (

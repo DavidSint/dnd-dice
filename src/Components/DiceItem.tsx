@@ -1,12 +1,13 @@
 import React from 'react';
+import { IDiceItemProps } from '../common/types';
 
-function DiceItem(props) {
+function DiceItem(props: IDiceItemProps) {
   const { die, roller } = props;
   return (
     <div 
-      className="dice-item" 
-      role="button" 
-      tabIndex="0" 
+      className="dice-item"
+      role="button"
+      tabIndex={0}
       onClick={() => {
         roller([die]);
       }
