@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 function SaveButton(props) {
   const { savedRolls, setSavedRolls, mod, rolls  } = props
 

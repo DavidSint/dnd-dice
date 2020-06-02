@@ -22,7 +22,7 @@ function DiceRoll(props: IDiceRollProps){
         }}
       >
         <span>D{roll.d}</span>
-        <p className="die-result">{roll.value}</p>
+        <p className="die-result">{roll.value || '-'}</p>
       </div>
       )
     })}

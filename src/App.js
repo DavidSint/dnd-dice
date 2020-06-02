@@ -3,9 +3,12 @@ import DiceRoll from './Components/DiceRoll';
 import DiceTotal from './Components/DiceTotal';
 import Footer from './Components/Footer';
 import SaveButton from './Components/SaveButton';
+import Dice from './Components/Dice';
+
 
 // import { IRoll, ISavedRoll, IGameProps, IRollProps, IReturnedRolls } from "./common/types";
 import io from 'socket.io-client';
+import RollButton from './Components/RollButton';
 
 const socket = io(process.env.REACT_APP_WS_URI)
 
@@ -51,7 +54,6 @@ function App() {
 
   useEffect(() => {
     if (inGame) {
-      console.log('joining game');
       socket.emit('join game', { 
         game: inGame, 
         name 
@@ -60,7 +62,6 @@ function App() {
 
     return () => {
       if (inGame) {
-        console.log('leaving game');
         socket.emit('leave game', {
           game: inGame,
           name
@@ -91,7 +92,6 @@ function App() {
   });
 
   const resetAndRoll = (dice, modifier) => {
-    console.log(`rolling d${dice}`);
     socket.emit('new roll', {
       game: inGame,
       name: myName,
@@ -178,15 +178,7 @@ function App() {
             </div>
             <div>
               { rolls.length>0 && 
-                  <button 
-                  className="roll"
-                  tabIndex={0}
-                  onClick={ () => {
-                    resetAndRoll(rolls.map(roll => roll.d), mod);
-                  }}
-                  >
-                    Roll
-                  </button>
+                <RollButton resetAndRoll={resetAndRoll} rolls={rolls} mod={mod}/>
               }
             </div>
             { inGame &&
@@ -195,45 +187,9 @@ function App() {
           </div>
         </main>
       </div>
-
       <Footer />
     </>
   );
 }
-
-
-function Dice(props){
-  const { inGame, name, die, rolls, setRolls } = props
-
-  const addDie = (die, name) => {
-    const [...arr] = rolls;
-    arr.push({
-      'id': `d${die}:0@${new Date().getTime()}`,
-      'd': die,
-      'value': 0,
-    });
-    setRolls(arr);
-  }
-
-  return (
-    <>
-      { inGame &&
-        <div 
-          className="dice-item"
-          role="button"
-          tabIndex={0}
-          onClick={() => {
-            addDie(die, name)
-            document.activeElement.blur()
-          }
-        }>
-          <img src={`${process.env.PUBLIC_URL}/dice/d${die}.png`} alt={`Roll a d${die}`} className="dice-image"/>
-          <p className={`dice-text ${die === 4 ? `dice-text--d${die}` : ""}`} aria-hidden="true">{`D${die}`}</p>
-        </div>
-      }
-    </>
-  )
-}
-
 
 export default App;
