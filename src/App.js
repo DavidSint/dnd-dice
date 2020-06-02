@@ -1,38 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 
-import Header from './Components/Header';
-import DiceRoll from './Components/DiceRoll';
-import DiceTotal from './Components/DiceTotal';
-import Footer from './Components/Footer';
-import SaveButton from './Components/SaveButton';
-import Dice from './Components/Dice';
-import ModButton from './Components/ModButton';
-import SavedRollButton from './Components/SavedRollButton';
+import usePersistedState from './common/persistedState'
 
+import {
+  Header,
+  DiceRoll,
+  DiceTotal,
+  Footer,
+  SaveButton,
+  Dice,
+  ModButton,
+  SavedRollButton,
+  RollButton,
+} from './Components'
+
+// import Header from './Components/Header';
+// import DiceRoll from './Components/DiceRoll';
+// import DiceTotal from './Components/DiceTotal';
+// import Footer from './Components/Footer';
+// import SaveButton from './Components/SaveButton';
+// import Dice from './Components/Dice';
+// import ModButton from './Components/ModButton';
+// import SavedRollButton from './Components/SavedRollButton';
+// import RollButton from './Components/RollButton';
 
 // import { IRoll, ISavedRoll, IGameProps, IRollProps, IReturnedRolls } from "./common/types";
-import io from 'socket.io-client';
-import RollButton from './Components/RollButton';
 
 const socket = io(process.env.REACT_APP_WS_URI)
 
 const dice = [4,6,8,10,12,20,100];
-
-function usePersistedState(key, defaultValue) {
-  const [state, setState] = useState(
-    () => {
-      try {
-        return JSON.parse(localStorage.getItem(key)) || defaultValue;
-      } catch { 
-        return defaultValue;
-      }
-    }
-  );
-  useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(state));
-  }, [key, state]);
-  return [state, setState];
-}
 
 function App() {
   const [inGame, setInGame] = useState('')
