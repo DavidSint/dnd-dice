@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import DiceRoll from './Components/DiceRoll';
 import DiceTotal from './Components/DiceTotal';
+import Footer from './Components/Footer';
+import SaveButton from './Components/SaveButton';
+
 // import { IRoll, ISavedRoll, IGameProps, IRollProps, IReturnedRolls } from "./common/types";
 import io from 'socket.io-client';
 
@@ -72,7 +75,7 @@ function App() {
     if (inGame) {
       setInGame('')
     } else {
-    const gameId = prompt("Please enter a game id", "test-game")
+    const gameId = prompt("Please enter a game id", "")
       if (gameId !== null && gameId !== "") {
         setInGame(gameId);
       }
@@ -186,26 +189,14 @@ function App() {
                   </button>
               }
             </div>
-            {inGame &&
-              <button className="save" tabIndex={0}onClick={() => {
-                const [...arr] = savedRolls;
-                const saveName = prompt("Please enter the name");
-                if (saveName) {
-                  const newSavedRoll = {"id": `@${new Date().getTime()}`, "name": saveName, "mod": mod?mod:0, "dice":rolls?rolls.map(roll => roll.d):[]};
-                  arr.push(newSavedRoll)
-                  setSavedRolls(arr)
-                }
-              }}>
-                Save As
-              </button>
+            { inGame &&
+              <SaveButton savedRolls={savedRolls} setSavedRolls={setSavedRolls} mod={mod} rolls={rolls} />
             }
           </div>
         </main>
       </div>
 
-      <footer className="footer">
-        <code className="footer-text"> <span className="footer-text--pre">Made by</span> <span className="highlight">David Sint</span></code>
-      </footer>
+      <Footer />
     </>
   );
 }
