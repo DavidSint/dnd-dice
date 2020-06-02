@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+
+import Header from './Components/Header';
 import DiceRoll from './Components/DiceRoll';
 import DiceTotal from './Components/DiceTotal';
 import Footer from './Components/Footer';
 import SaveButton from './Components/SaveButton';
 import Dice from './Components/Dice';
+import ModButton from './Components/ModButton';
+import SavedRollButton from './Components/SavedRollButton';
 
 
 // import { IRoll, ISavedRoll, IGameProps, IRollProps, IReturnedRolls } from "./common/types";
@@ -114,46 +118,13 @@ function App() {
 
   return (
     <>
-      <header className="header">
-        <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="Dice logo" className="header-logo"></img>
-        <h1 className="header-text h1">
-          {inGame || 'D&D'}
-          <span className="highlight">
-            Dice
-          </span>
-          {name ? ` - ${name}` : ''}
-        </h1>
-        <div style={{display: 'flex'}}>
-          <button onClick={() => changeName()}>
-            Change Name
-          </button>
-          <button onClick={() => toggleGame()}>
-            {inGame && `Leave ${inGame}`}
-            {!inGame && `Enter Game`}
-          </button>
-        </div>
-      </header>
+      <Header inGame={inGame} name={name} changeName={changeName} toggleGame={toggleGame} />
 
       <div className="container">
         <main className="main">
           <div className="filterScroller">
             { inGame &&
-              savedRolls.map((savedRoll, i) => {
-                return <button
-                  className="filterScroller-item" 
-                  key={i}
-                  tabIndex={0}
-                  onClick={ () => {
-                    resetAndRoll(savedRoll.dice, savedRoll.mod);
-                  }}
-                  onContextMenu={(e) => {
-                    e.preventDefault();
-                    removeASave(savedRoll.id);
-                  }}
-                >
-                  {savedRoll.name}
-                </button>
-              })
+              savedRolls.map((savedRoll, i) => <SavedRollButton i={i} resetAndRoll={resetAndRoll} savedRoll={savedRoll} removeASave={removeASave} />)
             }
           </div>
           <div className="diceTotal">
@@ -168,12 +139,7 @@ function App() {
             </div>
             <div className="modifier">
             { inGame &&
-              <button className="mod" tabIndex={0} onClick={() => {
-                const modifier = prompt("Please enter a modifier");
-                if (modifier){
-                  setMod(parseInt(modifier, 10))
-                };
-              }}>+/-</button>
+              <ModButton setMod={setMod} />
             }
             </div>
             <div>
