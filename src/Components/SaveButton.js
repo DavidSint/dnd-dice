@@ -1,8 +1,6 @@
 import React from 'react';
 
-function SaveButton(props) {
-  const { savedRolls, setSavedRolls, mod, rolls  } = props
-
+function SaveButton({ savedRolls, setSavedRolls, mod, rolls  }) {
   return (
     <button className="save" tabIndex={0} onClick={() => {
       const [...arr] = savedRolls;

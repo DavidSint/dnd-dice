@@ -151,7 +151,7 @@ function App() {
               }
             </div>
             { inGame &&
-              <SaveButton savedRolls={savedRolls} setSavedRolls={setSavedRolls} mod={myMod} rolls={rolls} />
+              <SaveButton savedRolls={savedRolls} setSavedRolls={setSavedRolls} mod={mod} rolls={rolls} />
             }
           </div>
         </main>
