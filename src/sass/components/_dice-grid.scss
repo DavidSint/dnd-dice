@@ -29,17 +29,6 @@
 
   animation: .5s ease-in 0s 1 dieRoll;
 
-  cursor: url(/trash-2.svg), not-allowed;
-  user-select: none;
-    &:focus,
-    &:hover {
-      outline: none;
-      transform: scale(1.1);
-    }
-
-    &:active{
-      transform: scale(1.05);
-    }
   
   &-result{
     font-size: 3rem;

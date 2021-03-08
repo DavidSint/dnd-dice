@@ -1,14 +1,15 @@
 .header {
   display: flex; 
   flex-flow: row nowrap;
-  justify-content: center;
+  justify-content: space-around;
+  
   align-items: center;
   width: auto;
   height: 5rem;
   
   margin: 0rem 0rem;
   border-top: .1rem solid $color-bg;
-  padding: 3rem 25vw;
+  padding: 3rem 0;
   background-color: $color-bg;
   border-bottom: .3rem solid $color-tertiary;
 
