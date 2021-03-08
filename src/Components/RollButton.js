@@ -1,14 +1,12 @@
 import React from 'react';
 
-function RollButton(props) {
-  const { resetAndRoll, rolls, mod } = props
-
+function RollButton({ rollDice, plannedDice, mod }) {
   return (
-    <button 
+    <button
       className="roll"
       tabIndex={0}
       onClick={ () => {
-        resetAndRoll(rolls.map(roll => roll.d), mod);
+        rollDice(plannedDice, mod)
       }}
       >
       Roll

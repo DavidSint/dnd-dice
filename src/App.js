@@ -15,21 +15,18 @@ import {
   RollButton,
 } from './Components'
 
-// import Header from './Components/Header';
-// import DiceRoll from './Components/DiceRoll';
-// import DiceTotal from './Components/DiceTotal';
-// import Footer from './Components/Footer';
-// import SaveButton from './Components/SaveButton';
-// import Dice from './Components/Dice';
-// import ModButton from './Components/ModButton';
-// import SavedRollButton from './Components/SavedRollButton';
-// import RollButton from './Components/RollButton';
-
-// import { IRoll, ISavedRoll, IGameProps, IRollProps, IReturnedRolls } from "./common/types";
-
-const socket = io(process.env.REACT_APP_WS_URI)
+const socket = io(process.env.REACT_APP_WS_URI, {'forceNew':true})
 
 const dice = [4,6,8,10,12,20,100];
+
+function joinGame(socket, game, name) {
+  if (game) {
+    socket.emit('join game', {
+      game,
+      name
+    });
+  }
+}
 
 function App() {
   const [inGame, setInGame] = useState('')
@@ -37,6 +34,8 @@ function App() {
   const [name, setName] = useState('');
   const [rolls, setRolls] = useState([]);
   const [mod, setMod] = useState(0);
+  const [plannedDice, setPlannedDice] = useState([]);
+  const [myMod, setMyMod] = useState(0);
   
   useEffect(() => {
     toggleGame()
@@ -46,7 +45,7 @@ function App() {
   // TODO: Shift this to Indexed DB with an entry for each game
   let [savedRolls, setSavedRolls] = usePersistedState('savedRolls', []);
 
-  const changeName = () => {
+  function changeName() {
     const name = prompt("Please enter your character name", "")
     if (name !== null && name !== "") {
       setMyName(name)
@@ -54,12 +53,7 @@ function App() {
   }
 
   useEffect(() => {
-    if (inGame) {
-      socket.emit('join game', { 
-        game: inGame, 
-        name 
-      });
-    }
+    joinGame(socket, inGame, name)
 
     return () => {
       if (inGame) {
@@ -73,7 +67,7 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inGame]);
 
-  const toggleGame = () => {
+  function toggleGame() {
     if (inGame) {
       setInGame('')
     } else {
@@ -86,13 +80,20 @@ function App() {
 
   useEffect(() => {
     socket.on('receive roll', (payload) => {
-      setRolls(payload[0].roll)
-      setMod(payload[0].mod)
-      setName(payload[0].name)
+      setRolls(payload.roll)
+      setMod(payload.mod)
+      setName(payload.name)
+    });
+
+    socket.on('connect', (msg) => {
+      socket.emit('join game', {
+        game: inGame,
+        name
+      });
     });
   });
 
-  const resetAndRoll = (dice, modifier) => {
+  function resetAndRoll(dice, modifier) {
     socket.emit('new roll', {
       game: inGame,
       name: myName,
@@ -103,12 +104,14 @@ function App() {
     setName(myName)
   };
 
-  const removeADie = (id) => {
-    const [...arr] = rolls;
-    setRolls(arr.filter((die) => die.id !== id));
+  function rollDice(diceWithCount, mod) {
+    const dice = diceWithCount.map(die => {
+      return [...Array(die.count)].map(_ => die.d)
+    })
+    resetAndRoll(dice.flat(), mod)
   }
 
-  const removeASave = (id) => {
+  function removeASave(id) {
     const [...arr] = savedRolls;
     setSavedRolls(arr.filter((save) => save.id !== id));
   }
@@ -121,31 +124,34 @@ function App() {
         <main className="main">
           <div className="filterScroller">
             { inGame &&
-              savedRolls.map((savedRoll, i) => <SavedRollButton i={i} resetAndRoll={resetAndRoll} savedRoll={savedRoll} removeASave={removeASave} />)
+              savedRolls.map((savedRoll) => <SavedRollButton key={savedRoll.id} resetAndRoll={resetAndRoll} savedRoll={savedRoll} removeASave={removeASave} />)
             }
           </div>
           <div className="diceTotal">
-            { rolls ? <DiceTotal rolls={rolls} mod={mod}/>: "" }
+            { rolls && <DiceTotal rolls={rolls} mod={mod}/> }
           </div>
           <div className="diceGrid" >
-            { rolls ? <DiceRoll rolls={rolls} removeADie={removeADie}  /> : "" }
+            { rolls && <DiceRoll rolls={rolls}  /> }
           </div>
           <div className="main-footer" tabIndex={-1}>
             <div className="dice">
-              {dice.map((die, i) => <Dice inGame={inGame} key={i} die={die} name={name} rolls={rolls} setRolls={setRolls}/>)}
+              {/* TODO
+                  Remove unused props here
+              */}
+              {dice.map((die) => <Dice inGame={inGame} key={`D${die}`} die={die} setPlannedDice={setPlannedDice} plannedDice={plannedDice}/>)}
             </div>
             <div className="modifier">
             { inGame &&
-              <ModButton setMod={setMod} />
+              <ModButton myMod={myMod} setMyMod={setMyMod} />
             }
             </div>
             <div>
-              { rolls.length>0 && 
-                <RollButton resetAndRoll={resetAndRoll} rolls={rolls} mod={mod}/>
+              { plannedDice.length > 0 && 
+                <RollButton rollDice={rollDice} plannedDice={plannedDice} mod={myMod} />
               }
             </div>
             { inGame &&
-              <SaveButton savedRolls={savedRolls} setSavedRolls={setSavedRolls} mod={mod} rolls={rolls} />
+              <SaveButton savedRolls={savedRolls} setSavedRolls={setSavedRolls} mod={myMod} rolls={rolls} />
             }
           </div>
         </main>

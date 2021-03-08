@@ -9,7 +9,7 @@ function SaveButton(props) {
       const saveName = prompt("Please enter the name");
       if (saveName) {
         const newSavedRoll = {
-          "id": `@${new Date().getTime()}`, 
+          "id": `${saveName}@${new Date().getTime()}`, 
           "name": saveName, 
           "mod": mod ? mod : 0, 
           "dice": rolls ? rolls.map(roll => roll.d) : []

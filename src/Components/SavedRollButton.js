@@ -1,12 +1,11 @@
 import React from 'react';
 
 function SavedRollButton(props) {
-  const { i, resetAndRoll, savedRoll, removeASave } = props
+  const { resetAndRoll, savedRoll, removeASave } = props
 
   return (
     <button
-      className="filterScroller-item" 
-      key={i}
+      className="filterScroller-item"
       tabIndex={0}
       onClick={ () => {
         resetAndRoll(savedRoll.dice, savedRoll.mod);
