@@ -30,13 +30,17 @@ code {
   white-space: nowrap;
 }
 
-.highlight, .highlight > a {
+.highlight {
   color: $color-primary;
-  text-decoration: none;
-  font-weight: 400;
 
-  &:hover {
-    text-decoration: underline;
-    font-weight: 600;
+  & > a {
+    color: $color-primary;
+    text-decoration: none;
+    font-weight: 400;
+  
+    &:hover {
+      text-decoration: underline;
+      font-weight: 600;
+    }
   }
 }
