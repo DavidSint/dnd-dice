@@ -3,25 +3,20 @@ export interface IRoll {
   value: number;
   d: number;
 }
-
 export interface ISavedRoll {
   id: string;
   name: string;
   mod: number;
   dice: number[];
 }
-
-export interface IDiceTotalProps {
-  rolls: IRoll[],
-  mod: number
+export interface IPlannedDie {
+  d: number,
+  count: number
 }
-
-export interface IDiceItemProps {
-  die: number;
-  roller(die: number[]): void;
-}
-
-export interface IDiceRollProps {
-  rolls: IRoll[];
-  removeADie(id: string): void;
+export interface IRecievedRoll {
+  game: string,
+  name: string,
+  roll: IRoll[],
+  mod: number,
+  total: number
 }

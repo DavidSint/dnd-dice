@@ -1,8 +1,8 @@
-import React from 'react';
-import { IDiceItemProps } from '../common/types';
-
-function DiceItem(props: IDiceItemProps) {
-  const { die, roller } = props;
+interface IDiceItem {
+  die: number;
+  roller(die: number[]): void;
+}
+function DiceItem({ die, roller }: IDiceItem) {
   return (
     <div 
       className="dice-item"

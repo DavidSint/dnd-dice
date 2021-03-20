@@ -1,7 +1,11 @@
-import React from 'react';
+import {ISavedRoll} from '../common/types'
 
-function SavedRollButton(props) {
-  const { resetAndRoll, savedRoll, removeASave } = props
+interface ISavedRollButton{
+  resetAndRoll: (dice: number[], modifier: number) => void,
+  savedRoll: ISavedRoll,
+  removeASave: (id: string) => void
+}
+function SavedRollButton({ resetAndRoll, savedRoll, removeASave }: ISavedRollButton) {
 
   return (
     <button

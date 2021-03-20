@@ -1,6 +1,13 @@
-import React from 'react';
+import { Dispatch } from "react";
+import { IPlannedDie, ISavedRoll } from "../common/types";
 
-function SaveButton({ savedRolls, setSavedRolls, mod, dice  }) {
+interface ISaveButton {
+  savedRolls: ISavedRoll[]
+  setSavedRolls: Dispatch<React.SetStateAction<ISavedRoll[]>>,
+  mod: number,
+  dice: IPlannedDie[]
+}
+function SaveButton({ savedRolls, setSavedRolls, mod, dice }: ISaveButton) {
   return (
     <button className="save" tabIndex={0} onClick={() => {
       const [...arr] = savedRolls;

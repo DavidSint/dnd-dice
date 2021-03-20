@@ -1,7 +1,14 @@
-import React from 'react'
+import { Dispatch } from "react"
+import { IPlannedDie } from "../common/types"
 
-function Dice({ inGame, die, plannedDice: prePlannedDice, setPlannedDice, }){
-  function addDie(die) {
+interface IDice {
+  inGame: string,
+  die: number,
+  prePlannedDice: IPlannedDie[],
+  setPlannedDice: Dispatch<React.SetStateAction<IPlannedDie[]>>
+}
+function Dice({ inGame, die, prePlannedDice, setPlannedDice }: IDice){
+  function addDie(die: number) {
     // TODO pass the hook functions in as well and move these functions to above component
 
     const [...plannedDice] = prePlannedDice
@@ -20,7 +27,7 @@ function Dice({ inGame, die, plannedDice: prePlannedDice, setPlannedDice, }){
     setPlannedDice(plannedDice)
   }
 
-  function removeDie(die){
+  function removeDie(die: number){
     const [...plannedDice] = prePlannedDice
     const preExistDieIndex = plannedDice.findIndex(plan => plan.d === die)
     if (preExistDieIndex !== -1) {
@@ -46,7 +53,9 @@ function Dice({ inGame, die, plannedDice: prePlannedDice, setPlannedDice, }){
           tabIndex={0}
           onClick={() => {
             addDie(die)
-            document.activeElement.blur()
+            if (document.activeElement !== null) {
+              (document.activeElement as HTMLElement).blur()
+            }
           }
         }
           onContextMenu={(e) => {

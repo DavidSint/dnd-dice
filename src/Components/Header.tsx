@@ -1,8 +1,10 @@
-import React from 'react';
-
-function Header(props) {
-  const { inGame, name, changeName, toggleGame } = props
-
+interface IHeader {
+  inGame: string,
+  name: string,
+  changeName: () => void,
+  toggleGame: () => void
+}
+function Header({ inGame, name, changeName, toggleGame }: IHeader) {
   return (
     <header className="header">
       <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="Dice logo" className="header-logo"></img>

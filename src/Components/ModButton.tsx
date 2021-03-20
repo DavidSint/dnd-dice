@@ -1,6 +1,10 @@
-import React from 'react';
+import { Dispatch } from "react";
 
-function ModButton({ myMod, setMyMod }) {
+interface IModButton {
+  myMod: number,
+  setMyMod: Dispatch<React.SetStateAction<number>>
+}
+function ModButton({ myMod, setMyMod }: IModButton) {
   return (
     <button
       className="mod"

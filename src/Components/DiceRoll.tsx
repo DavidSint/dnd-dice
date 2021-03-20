@@ -1,8 +1,9 @@
-import React from 'react';
-import { IDiceRollProps } from '../common/types';
+import { IRoll } from '../common/types';
 
-function DiceRoll(props: IDiceRollProps){
-  const { rolls } = props;
+interface IDiceRoll {
+  rolls: IRoll[]
+}
+function DiceRoll({ rolls }: IDiceRoll ){
   return (
     <>
     {rolls.map((roll, i) => {
