@@ -10,7 +10,6 @@ function DiceRoll(props: IDiceRollProps){
       <div 
         className={`die die-${roll.d}`} 
         key={i}
-        tabIndex={0}
       >
         <span>D{roll.d}</span>
         <p className="die-result">{roll.value || '-'}</p>

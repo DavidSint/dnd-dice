@@ -1,51 +1,41 @@
 import React from 'react'
 
-function Dice({ inGame, name, die, rolls, setRolls, plannedDice, setPlannedDice, }){
-  function addDie(die, name) {
-    // TODO No need for name here
-    // TODO remove this first section
-    // TODO rename arr2 to arr
+function Dice({ inGame, die, plannedDice: prePlannedDice, setPlannedDice, }){
+  function addDie(die) {
     // TODO pass the hook functions in as well and move these functions to above component
-    // const [...arr] = rolls;
-    // arr.push({
-    //   'id': `d${die}:0@${new Date().getTime()}`,
-    //   'd': die,
-    //   'value': 0,
-    // });
-    // setRolls(arr);
 
-    const [...arr] = plannedDice
-    const preExistDieIndex = arr.findIndex(plan => plan.d === die)
+    const [...plannedDice] = prePlannedDice
+    const preExistDieIndex = plannedDice.findIndex(plan => plan.d === die)
     if (preExistDieIndex === -1) {
-      arr.push({
+      plannedDice.push({
         d: die,
         count: 1
       })
     } else {
-      arr[preExistDieIndex] = {
+      plannedDice[preExistDieIndex] = {
         d: die,
-        count: arr[preExistDieIndex].count + 1
+        count: plannedDice[preExistDieIndex].count + 1
       }
     }
-    setPlannedDice(arr)
+    setPlannedDice(plannedDice)
   }
 
   function removeDie(die){
-    const [...arr] = plannedDice
-    const preExistDieIndex = arr.findIndex(plan => plan.d === die)
+    const [...plannedDice] = prePlannedDice
+    const preExistDieIndex = plannedDice.findIndex(plan => plan.d === die)
     if (preExistDieIndex !== -1) {
-      arr[preExistDieIndex] = {
+      plannedDice[preExistDieIndex] = {
         d: die,
-        count: arr[preExistDieIndex].count -1
+        count: plannedDice[preExistDieIndex].count -1
       }
-      if (arr[preExistDieIndex].count < 1) {
-        arr.splice(preExistDieIndex, 1)
+      if (plannedDice[preExistDieIndex].count < 1) {
+        plannedDice.splice(preExistDieIndex, 1)
       }
     }
-    setPlannedDice(arr)
+    setPlannedDice(plannedDice)
   }
 
-  const dCount = plannedDice.find(d => d.d === die) ?? { count: 0 };
+  const dCount = prePlannedDice.find(d => d.d === die) ?? { count: 0 };
 
   return (
     <>
@@ -55,7 +45,7 @@ function Dice({ inGame, name, die, rolls, setRolls, plannedDice, setPlannedDice,
           role="button"
           tabIndex={0}
           onClick={() => {
-            addDie(die, name)
+            addDie(die)
             document.activeElement.blur()
           }
         }

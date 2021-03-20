@@ -43,10 +43,10 @@ function App() {
   },[])
   
   // TODO: Shift this to Indexed DB with an entry for each game
-  let [savedRolls, setSavedRolls] = usePersistedState('savedRolls', []);
+  const [savedRolls, setSavedRolls] = usePersistedState('savedRolls', []);
 
   function changeName() {
-    const name = prompt("Please enter your character name", "")
+    const name = prompt("Please enter your character name", myName || "Anon")
     if (name !== null && name !== "") {
       setMyName(name)
     }
@@ -71,7 +71,7 @@ function App() {
     if (inGame) {
       setInGame('')
     } else {
-    const gameId = prompt("Please enter a game id", "")
+    const gameId = prompt("Please enter a game ID", "")
       if (gameId !== null && gameId !== "") {
         setInGame(gameId);
       }
@@ -135,9 +135,6 @@ function App() {
           </div>
           <div className="main-footer" tabIndex={-1}>
             <div className="dice">
-              {/* TODO
-                  Remove unused props here
-              */}
               {dice.map((die) => <Dice inGame={inGame} key={`D${die}`} die={die} setPlannedDice={setPlannedDice} plannedDice={plannedDice}/>)}
             </div>
             <div className="modifier">
@@ -151,7 +148,7 @@ function App() {
               }
             </div>
             { inGame &&
-              <SaveButton savedRolls={savedRolls} setSavedRolls={setSavedRolls} mod={mod} rolls={rolls} />
+              <SaveButton savedRolls={savedRolls} setSavedRolls={setSavedRolls} mod={myMod} dice={plannedDice}/>
             }
           </div>
         </main>
