@@ -13,7 +13,7 @@ import {
   SavedRollButton,
   RollButton,
 } from './Components'
-import { changeName, joinGame, toggleGame, resetAndRoll, rollDice, removeASave } from './helpers'
+import { changeName, joinGame, toggleGame, resetAndRoll, rollDice, removeASave } from './utils'
 
 if (!process.env.REACT_APP_WS_URI) throw new Error("Missing Websocket URI, please add to websocket in environment variables.")
 const socket = io(process.env.REACT_APP_WS_URI, {'forceNew':true})
