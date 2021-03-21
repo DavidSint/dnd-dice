@@ -1,4 +1,5 @@
 import { Dispatch } from "react";
+import { Socket } from "socket.io-client";
 import { IResetAndRoll, IRollDice, IRemoveASave, ISavedRoll } from "../common/types";
 
 export function changeName(myName: string, setMyName: Dispatch<React.SetStateAction<string>>): void {
@@ -8,7 +9,7 @@ export function changeName(myName: string, setMyName: Dispatch<React.SetStateAct
   }
 }
 
-export function joinGame(socket: SocketIOClient.Socket, game: string, name: string): void {
+export function joinGame(socket: Socket, game: string, name: string): void {
   if (game) {
     socket.emit('join game', {
       game,

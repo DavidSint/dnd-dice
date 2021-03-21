@@ -1,4 +1,5 @@
 import { Dispatch } from "react";
+import { Socket } from "socket.io-client";
 
 export interface IRoll {
   id: string;
@@ -23,7 +24,7 @@ export interface IRecievedRoll {
   total: number
 }
 export interface IResetAndRoll {
-  socket: SocketIOClient.Socket,
+  socket: Socket,
   dice: number[],
   modifier: number,
   inGame: string,
@@ -39,7 +40,7 @@ export interface IRollDice {
   myName: string,
   setMod: Dispatch<React.SetStateAction<number>>,
   setName: Dispatch<React.SetStateAction<string>>,
-  socket: SocketIOClient.Socket,
+  socket: Socket,
 }
 
 export interface IRemoveASave {

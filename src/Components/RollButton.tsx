@@ -1,4 +1,5 @@
 import { Dispatch, ReactElement } from "react";
+import { Socket } from "socket.io-client";
 import { IPlannedDie, IRollDice } from "../common/types";
 
 interface IRollButton {
@@ -9,7 +10,7 @@ interface IRollButton {
   myName: string,
   setName: Dispatch<React.SetStateAction<string>>,
   inGame: string,
-  socket: SocketIOClient.Socket
+  socket: Socket
 }
 function RollButton({
   rollDice,

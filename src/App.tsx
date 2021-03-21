@@ -1,5 +1,5 @@
 import { useState, useEffect, ReactElement } from 'react';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 import usePersistedState from './common/persistedState'
 import { IPlannedDie, IRecievedRoll, IRoll, ISavedRoll } from './common/types';
 import {

@@ -1,4 +1,5 @@
 import { Dispatch, ReactElement } from 'react';
+import { Socket } from 'socket.io-client';
 import {ISavedRoll, IResetAndRoll, IRemoveASave} from '../common/types'
 
 interface ISavedRollButton{
@@ -11,7 +12,7 @@ interface ISavedRollButton{
   setName: Dispatch<React.SetStateAction<string>>,
   savedRolls: ISavedRoll[],
   setSavedRolls: Dispatch<React.SetStateAction<ISavedRoll[]>>,
-  socket: SocketIOClient.Socket
+  socket: Socket
 }
 function SavedRollButton({
   resetAndRoll,
