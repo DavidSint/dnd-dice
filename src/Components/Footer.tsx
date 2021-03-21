@@ -1,4 +1,6 @@
-function Footer() {
+import { ReactElement } from "react";
+
+function Footer(): ReactElement {
   return (
     <footer className="footer">
       <code className="footer-text">

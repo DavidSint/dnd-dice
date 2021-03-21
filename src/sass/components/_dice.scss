@@ -1,4 +1,4 @@
-.dice{
+.dice {
   display: flex;
   height: auto;
   list-style: none;
@@ -6,8 +6,12 @@
   justify-content: flex-start;
 
   &-item {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+	  box-shadow: none;
     display: block;
-    color: $color-dark;
     cursor: pointer;
     height: 5rem;
 
@@ -23,7 +27,7 @@
       transform: scale(1.1);
     }
 
-    &:active{
+    &:active {
       transform: scale(1.05);
     }
   }

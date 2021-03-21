@@ -1,4 +1,4 @@
-import { Dispatch } from "react"
+import { Dispatch, ReactElement } from "react"
 import { IPlannedDie } from "../common/types"
 
 interface IDice {
@@ -7,32 +7,32 @@ interface IDice {
   prePlannedDice: IPlannedDie[],
   setPlannedDice: Dispatch<React.SetStateAction<IPlannedDie[]>>
 }
-function Dice({ inGame, die, prePlannedDice, setPlannedDice }: IDice){
-  function addDie(die: number) {
+function Dice({ inGame, die, prePlannedDice, setPlannedDice }: IDice): ReactElement {
+  function addDie(d: number) {
     // TODO pass the hook functions in as well and move these functions to above component
 
     const [...plannedDice] = prePlannedDice
-    const preExistDieIndex = plannedDice.findIndex(plan => plan.d === die)
+    const preExistDieIndex = plannedDice.findIndex(plan => plan.d === d)
     if (preExistDieIndex === -1) {
       plannedDice.push({
-        d: die,
+        d,
         count: 1
       })
     } else {
       plannedDice[preExistDieIndex] = {
-        d: die,
+        d,
         count: plannedDice[preExistDieIndex].count + 1
       }
     }
     setPlannedDice(plannedDice)
   }
 
-  function removeDie(die: number){
+  function removeDie(d: number){
     const [...plannedDice] = prePlannedDice
-    const preExistDieIndex = plannedDice.findIndex(plan => plan.d === die)
+    const preExistDieIndex = plannedDice.findIndex(plan => plan.d === d)
     if (preExistDieIndex !== -1) {
       plannedDice[preExistDieIndex] = {
-        d: die,
+        d,
         count: plannedDice[preExistDieIndex].count -1
       }
       if (plannedDice[preExistDieIndex].count < 1) {
@@ -47,9 +47,9 @@ function Dice({ inGame, die, prePlannedDice, setPlannedDice }: IDice){
   return (
     <>
       { inGame &&
-        <div 
+        <button 
           className="dice-item"
-          role="button"
+          type="button"
           tabIndex={0}
           onClick={() => {
             addDie(die)
@@ -68,7 +68,7 @@ function Dice({ inGame, die, prePlannedDice, setPlannedDice }: IDice){
           {dCount.count !== 0 &&
             <span className="dice-badge">{dCount.count}</span>
           }
-        </div>
+        </button>
       }
     </>
   )

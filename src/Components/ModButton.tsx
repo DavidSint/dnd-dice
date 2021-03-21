@@ -1,12 +1,13 @@
-import { Dispatch } from "react";
+import { Dispatch, ReactElement } from "react";
 
 interface IModButton {
   myMod: number,
   setMyMod: Dispatch<React.SetStateAction<number>>
 }
-function ModButton({ myMod, setMyMod }: IModButton) {
+function ModButton({ myMod, setMyMod }: IModButton): ReactElement {
   return (
     <button
+      type="button"
       className="mod"
       tabIndex={0}
       onContextMenu={((e) => {
@@ -17,11 +18,9 @@ function ModButton({ myMod, setMyMod }: IModButton) {
       const modifier = prompt("Please enter a modifier");
       if (modifier){
         setMyMod(parseInt(modifier, 10))
-      };
+      }
     }}>
-      {myMod
-        ? myMod > 0 ? `+${myMod}` : myMod
-        : "+/-"}
+      {myMod > 0 ? `+${myMod}` : myMod || "+/-"}
     </button>
   );
 }

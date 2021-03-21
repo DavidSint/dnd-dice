@@ -1,10 +1,11 @@
+import { ReactElement } from 'react';
 import { IRoll } from '../common/types';
 
 interface IDiceTotal {
   rolls: IRoll[],
   mod: number
 }
-function DiceTotal(props: IDiceTotal){
+function DiceTotal(props: IDiceTotal): ReactElement {
   const { rolls, mod } = props;
     return (
       <>

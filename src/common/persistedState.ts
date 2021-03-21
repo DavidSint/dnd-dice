@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, Dispatch } from 'react'
 
-function usePersistedState(key: string, defaultValue: any) {
+export default function usePersistedState<T>(key: string, defaultValue: T): [T, Dispatch<React.SetStateAction<T>>] {
   const [state, setState] = useState(
     () => {
       try {
@@ -15,5 +15,3 @@ function usePersistedState(key: string, defaultValue: any) {
   }, [key, state]);
   return [state, setState];
 }
-
-export default usePersistedState

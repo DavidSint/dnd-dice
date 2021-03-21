@@ -1,3 +1,5 @@
+import { Dispatch } from "react";
+
 export interface IRoll {
   id: string;
   value: number;
@@ -19,4 +21,29 @@ export interface IRecievedRoll {
   roll: IRoll[],
   mod: number,
   total: number
+}
+export interface IResetAndRoll {
+  socket: SocketIOClient.Socket,
+  dice: number[],
+  modifier: number,
+  inGame: string,
+  myName: string,
+  setMod: Dispatch<React.SetStateAction<number>>,
+  setName: Dispatch<React.SetStateAction<string>>
+}
+
+export interface IRollDice {
+  plannedDice: IPlannedDie[],
+  mod: number,
+  inGame: string,
+  myName: string,
+  setMod: Dispatch<React.SetStateAction<number>>,
+  setName: Dispatch<React.SetStateAction<string>>,
+  socket: SocketIOClient.Socket,
+}
+
+export interface IRemoveASave {
+  id: string,
+  savedRolls: ISavedRoll[],
+  setSavedRolls: Dispatch<React.SetStateAction<ISavedRoll[]>>
 }
