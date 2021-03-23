@@ -73,7 +73,7 @@ function App(): ReactElement {
 
   return (
     <>
-      <Header inGame={inGame} setInGame={setInGame} name={name} changeName={changeName} toggleGame={toggleGame} setMyName={setMyName} />
+      <Header inGame={inGame} setInGame={setInGame} name={name} changeName={changeName} toggleGame={toggleGame} setMyName={setMyName} myName={myName}/>
 
       <div className="container">
         <main className="main">

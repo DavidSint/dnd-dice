@@ -4,11 +4,12 @@ interface IHeader {
   inGame: string,
   setInGame: Dispatch<React.SetStateAction<string>>
   name: string,
+  myName: string,
   setMyName: Dispatch<React.SetStateAction<string>>,
   changeName: (myName: string, setMyName: Dispatch<React.SetStateAction<string>>) => void,
   toggleGame: (inGame: string, setInGame: Dispatch<React.SetStateAction<string>>) => void
 }
-function Header({ inGame, setInGame, name, setMyName, changeName, toggleGame }: IHeader): ReactElement {
+function Header({ inGame, setInGame, name, setMyName, changeName, toggleGame, myName }: IHeader): ReactElement {
   return (
     <header className="header">
       <img src={`${process.env.PUBLIC_URL  }/logo192.png`} alt="Dice logo" className="header-logo" />
@@ -20,7 +21,7 @@ function Header({ inGame, setInGame, name, setMyName, changeName, toggleGame }: 
         {name ? ` - ${name}` : ''}
       </h1>
       <div style={{display: 'flex'}}>
-        <button type="button" onClick={() => changeName(name, setMyName)}>
+        <button type="button" onClick={() => changeName(myName, setMyName)}>
           Change Name
         </button>
         <button type="button" onClick={() => toggleGame(inGame, setInGame)}>
