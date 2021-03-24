@@ -1,13 +1,15 @@
-.filterScroller{
+.filterScroller {
   display: flex;
   height: auto;
-  // overflow-y: scroll;
   overflow-y: hidden;
   list-style: none;
   text-align: center;
-  justify-content: center;
-
   border-bottom: .2rem solid $color-tertiary;
+
+  &-container {
+    display:flex;
+    margin: 0 auto
+  }
 
   &-item {
     display: block;
@@ -20,10 +22,9 @@
     transition: transform .2s;
     animation: .5s ease-in 0s 1 expand;
     border: 0;
-
     white-space: nowrap;
-
     user-select: none;
+
     &:focus,
     &:hover {
       outline: none;

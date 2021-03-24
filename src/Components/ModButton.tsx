@@ -1,10 +1,8 @@
-import { Dispatch, ReactElement } from "react";
+import { ReactElement } from "react";
+import { useDice } from "../utils";
 
-interface IModButton {
-  myMod: number,
-  setMyMod: Dispatch<React.SetStateAction<number>>
-}
-function ModButton({ myMod, setMyMod }: IModButton): ReactElement {
+function ModButton(): ReactElement {
+  const {myMod, setMyMod} = useDice()
   return (
     <button
       type="button"

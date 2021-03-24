@@ -1,31 +1,9 @@
-import { Dispatch, ReactElement } from 'react';
-import { Socket } from 'socket.io-client';
-import {ISavedRoll, IResetAndRoll, IRemoveASave} from '../common/types'
+import { ReactElement } from 'react';
+import { ISavedRoll } from '../common/types'
+import { removeASave, resetAndRoll, useDice } from '../utils';
 
-interface ISavedRollButton{
-  resetAndRoll: ({ dice, modifier, inGame, myName, setMod, setName }: IResetAndRoll) => void,
-  savedRoll: ISavedRoll,
-  removeASave: ({id, savedRolls , setSavedRolls }: IRemoveASave) => void,
-  inGame: string,
-  myName: string,
-  setMod: Dispatch<React.SetStateAction<number>>,
-  setName: Dispatch<React.SetStateAction<string>>,
-  savedRolls: ISavedRoll[],
-  setSavedRolls: Dispatch<React.SetStateAction<ISavedRoll[]>>,
-  socket: Socket
-}
-function SavedRollButton({
-  resetAndRoll,
-  savedRoll,
-  removeASave,
-  inGame,
-  myName,
-  setMod,
-  setName,
-  savedRolls,
-  setSavedRolls,
-  socket
-}: ISavedRollButton): ReactElement {
+function SavedRollButton({ savedRoll }: {savedRoll: ISavedRoll}): ReactElement {
+  const {inGame, myName, setMod, setName, savedRolls, setSavedRolls, socket } = useDice();
   return (
     <button
       type="button"

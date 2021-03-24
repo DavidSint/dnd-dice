@@ -1,12 +1,8 @@
 import { ReactElement } from 'react';
-import { IRoll } from '../common/types';
+import { useDice } from '../utils';
 
-interface IDiceTotal {
-  rolls: IRoll[],
-  mod: number
-}
-function DiceTotal(props: IDiceTotal): ReactElement {
-  const { rolls, mod } = props;
+function DiceTotal(): ReactElement {
+  const { rolls, mod } = useDice();
     return (
       <>
         <p>{mod ? `Mod: ${mod}` : ""}</p>

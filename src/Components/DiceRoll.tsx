@@ -1,10 +1,8 @@
 import { ReactElement } from 'react';
-import { IRoll } from '../common/types';
+import { useDice } from '../utils';
 
-interface IDiceRoll {
-  rolls: IRoll[]
-}
-function DiceRoll({ rolls }: IDiceRoll ): ReactElement {
+function DiceRoll(): ReactElement {
+  const { rolls } = useDice()
   return (
     <>
     {rolls.map((roll) => (

@@ -11,9 +11,9 @@ import {
   Dice,
   ModButton,
   SavedRollButton,
-  RollButton,
+  RollButton
 } from './Components'
-import { changeName, joinGame, toggleGame, resetAndRoll, rollDice, removeASave } from './utils'
+import { joinGame, toggleGame, DiceStateProvider } from './utils'
 
 if (!process.env.REACT_APP_WS_URI) throw new Error("Missing Websocket URI, please add to websocket in environment variables.")
 const socket = io(process.env.REACT_APP_WS_URI, {'forceNew':true})
@@ -34,16 +34,16 @@ function App(): ReactElement {
   // TODO: Shift this to Indexed DB with an entry for each game
   const [savedRolls, setSavedRolls] = usePersistedState<ISavedRoll[]>('savedRolls', []);
 
-  // changeName(myName, setMyName)
+  const states = { inGame, setInGame, myName, setMyName, name, setName, rolls, setRolls, mod, setMod, plannedDice, setPlannedDice, myMod, setMyMod, savedRolls, setSavedRolls, socket }
 
   useEffect(() => {
-    joinGame(socket, inGame, name)
+    joinGame(socket, inGame, myName)
 
     return () => {
       if (inGame) {
         socket.emit('leave game', {
           game: inGame,
-          name
+          myName
         })
         setRolls([])
       }
@@ -52,7 +52,7 @@ function App(): ReactElement {
   }, [inGame]);
 
   useEffect(() => {
-    toggleGame(inGame, setInGame)
+    toggleGame(inGame, setInGame, setMod)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
@@ -66,50 +66,53 @@ function App(): ReactElement {
     socket.on('connect', () => {
       socket.emit('join game', {
         game: inGame,
-        name
+        myName
       });
     });
   });
 
   return (
-    <>
-      <Header inGame={inGame} setInGame={setInGame} name={name} changeName={changeName} toggleGame={toggleGame} setMyName={setMyName} myName={myName}/>
+    <DiceStateProvider states={states} >
+      <Header />
 
       <div className="container">
         <main className="main">
           <div className="filterScroller">
+            <div className="filterScroller-container">
             { inGame &&
-              savedRolls.map((savedRoll: ISavedRoll) => <SavedRollButton key={savedRoll.id} resetAndRoll={resetAndRoll} savedRoll={savedRoll} removeASave={removeASave} inGame={inGame} myName={myName} setMod={setMod} setName={setName} savedRolls={savedRolls} setSavedRolls={setSavedRolls} socket={socket} />)
+              savedRolls.map((savedRoll: ISavedRoll) => <SavedRollButton key={savedRoll.id} savedRoll={savedRoll} />)
             }
+            </div>
           </div>
           <div className="diceTotal">
-            { rolls && <DiceTotal rolls={rolls} mod={mod}/> }
+            { rolls && <DiceTotal/> }
           </div>
           <div className="diceGrid" >
-            { rolls && <DiceRoll rolls={rolls}  /> }
+            { rolls && <DiceRoll /> }
           </div>
           <div className="main-footer" tabIndex={-1}>
             <div className="dice">
-              {dice.map((die) => <Dice inGame={inGame} key={`D${die}`} die={die} setPlannedDice={setPlannedDice} prePlannedDice={plannedDice}/>)}
+              {dice.map((die) => <Dice key={`D${die}`} die={die}/>)}
             </div>
             <div className="modifier">
             { inGame &&
-              <ModButton myMod={myMod} setMyMod={setMyMod} />
+              <ModButton />
             }
             </div>
             <div>
-              { plannedDice.length > 0 && 
-                <RollButton rollDice={rollDice} plannedDice={plannedDice} mod={myMod} setMod={setMod} myName={myName} setName={setName} inGame={inGame} socket={socket}/>
+              {
+                plannedDice.length > 0 &&
+                <RollButton />
               }
             </div>
             { inGame &&
-              <SaveButton savedRolls={savedRolls} setSavedRolls={setSavedRolls} mod={myMod} dice={plannedDice}/>
+              <SaveButton />
             }
           </div>
         </main>
       </div>
       <Footer />
-    </>
+    </DiceStateProvider>
   );
 }
 

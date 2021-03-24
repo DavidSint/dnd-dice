@@ -1,23 +1,20 @@
 // eslint-disable-next-line no-use-before-define
-import React, { Dispatch, ReactElement } from "react";
-import { IPlannedDie, ISavedRoll } from "../common/types";
+import { ReactElement } from "react";
+import { useDice } from "../utils";
 
-interface ISaveButton {
-  savedRolls: ISavedRoll[]
-  setSavedRolls: Dispatch<React.SetStateAction<ISavedRoll[]>>,
-  mod: number,
-  dice: IPlannedDie[]
-}
-function SaveButton({ savedRolls, setSavedRolls, mod, dice }: ISaveButton): ReactElement {
+
+function SaveButton(): ReactElement {
+  const { myMod, plannedDice: dice, savedRolls, setSavedRolls } = useDice()
   return (
     <button type="button" className="save" tabIndex={0} onClick={() => {
+      console.dir({ savedRolls }, { depth: null })
       const [...arr] = savedRolls;
       const saveName = prompt("Please enter a name for this type of roll");
       if (saveName) {
         const newSavedRoll = {
           "id": `${saveName}@${new Date().getTime()}`,
           "name": saveName,
-          "mod": mod || 0,
+          "mod": myMod || 0,
           "dice": dice ? dice.map(die => [...Array(die.count)].map(() => die.d)).flat() : []
         };
         arr.push(newSavedRoll)

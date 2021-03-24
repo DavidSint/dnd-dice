@@ -1,13 +1,11 @@
-import { Dispatch, ReactElement } from "react"
-import { IPlannedDie } from "../common/types"
+import { ReactElement } from "react"
+import { useDice } from "../utils"
 
 interface IDice {
-  inGame: string,
   die: number,
-  prePlannedDice: IPlannedDie[],
-  setPlannedDice: Dispatch<React.SetStateAction<IPlannedDie[]>>
 }
-function Dice({ inGame, die, prePlannedDice, setPlannedDice }: IDice): ReactElement {
+function Dice({ die }: IDice): ReactElement {
+  const { inGame, plannedDice: prePlannedDice, setPlannedDice } = useDice()
   function addDie(d: number) {
     // TODO pass the hook functions in as well and move these functions to above component
 

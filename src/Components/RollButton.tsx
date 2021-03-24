@@ -1,28 +1,9 @@
-import { Dispatch, ReactElement } from "react";
-import { Socket } from "socket.io-client";
-import { IPlannedDie, IRollDice } from "../common/types";
+import { ReactElement } from "react";
+import { useDice, rollDice } from "../utils"
 
-interface IRollButton {
-  rollDice: ({ plannedDice, mod, inGame, myName, setMod, setName}: IRollDice) => void,
-  plannedDice: IPlannedDie[],
-  mod: number,
-  setMod: Dispatch<React.SetStateAction<number>>,
-  myName: string,
-  setName: Dispatch<React.SetStateAction<string>>,
-  inGame: string,
-  socket: Socket
-}
-function RollButton({
-  rollDice,
-  plannedDice,
-  mod,
-  inGame,
-  myName,
-  setMod,
-  setName,
-  socket
-}: IRollButton): ReactElement {
-  return (
+export default function RollButton(): ReactElement {
+  const { plannedDice, myMod, setMod, myName, setName, inGame, socket } = useDice();
+  return(
     <button
     type="button"
       className="roll"
@@ -30,7 +11,7 @@ function RollButton({
       onClick={ () => {
         rollDice({
           plannedDice,
-          mod,
+          mod: myMod,
           inGame,
           myName,
           setMod,
@@ -41,7 +22,5 @@ function RollButton({
       >
       Roll
     </button>
-  );
+  )
 }
-
-export default RollButton;
