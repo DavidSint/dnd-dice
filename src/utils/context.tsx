@@ -26,8 +26,6 @@ const LocalStateContext = createContext<IUseDice | null>(null)
 const LocalStateProvider = LocalStateContext.Provider
 
 function DiceStateProvider({ children, states }: {children: ReactElement | ReactElement[], states: any} ) {
-
-  
   return (
     <LocalStateProvider value={{
       ...states
