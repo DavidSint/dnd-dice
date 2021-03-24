@@ -28,7 +28,6 @@ function Header(): ReactElement {
   return (
     <header className="header">
       <img src={`${process.env.PUBLIC_URL  }/logo192.png`} alt="Dice logo" className="header-logo" />
-      {inGame && <button type="button" style={{padding:'0.3rem'}} onClick={handleShare}>🔗</button>}
       <h1 className="header-text h1">
         D&amp;D
         <span className="highlight">
@@ -46,6 +45,7 @@ function Header(): ReactElement {
             {!inGame && `Enter Game`}
           </button>
         </a>
+        {inGame && <button type="button" style={{padding:'0rem 0.5rem'}} onClick={handleShare}>🔗</button>}
       </div>
     </header>
   );

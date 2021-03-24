@@ -7,7 +7,7 @@ export default function LoadGamePage(){
   const { setMod } = useDice()
   const history = useHistory()
   useEffect(() => {
-    // toggleGame(inGame, setInGame, setMod)
+    document.title = "D&D Dice"
     const gameId = prompt("Please enter a game ID", "")
     if (gameId !== null && gameId !== "") {
       history.push(`/${gameId}`);

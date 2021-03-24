@@ -24,6 +24,7 @@ export default function App(): ReactElement {
   const { inGame, myName, setRolls, setInGame, setMod, setName, savedRolls, rolls, plannedDice } = useDice()
   useEffect(() => {
     joinGame(socket, inGame, myName)
+    document.title = `D&D Dice - ${inGame}`
 
     return () => {
       if (inGame) {
@@ -37,7 +38,9 @@ export default function App(): ReactElement {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inGame]);
 
-
+  useEffect(() => {
+    document.title = "D&D Dice"
+  }, [])
 
   useEffect(() => {
     socket.on('receive roll', (payload: IRecievedRoll) => {
