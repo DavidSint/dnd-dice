@@ -85,20 +85,22 @@ export default function App(): ReactElement {
             <div className="dice">
               {dice.map((die) => <Dice key={`D${die}`} die={die}/>)}
             </div>
-            <div className="modifier">
+            <div style={{height: '10px'}}>
             { inGame &&
               <ModButton />
             }
             </div>
-            <div>
+            <div style={{height: '10px'}}>
               {
                 plannedDice.length > 0 &&
                 <RollButton />
               }
             </div>
-            { inGame &&
-              <SaveButton />
-            }
+            <div style={{height: '10px'}}>
+              { inGame &&
+                <SaveButton />
+              }
+            </div>
           </div>
         </main>
       </div>

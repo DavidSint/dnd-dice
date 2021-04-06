@@ -1,19 +1,18 @@
-@import  
-"abstracts/mixins", 
+@import
 "abstracts/variables";
 
-@import 
-"base/animations", 
-"base/base", 
+@import
+"base/animations",
+"base/base",
 "base/typography";
 
-@import 
+@import
 "components/button",
 "components/dice",
 "components/dice-grid",
 "components/filterScroller";
 
-@import 
+@import
 "layout/footer",
 "layout/main",
 "layout/header";
