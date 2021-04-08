@@ -1,4 +1,5 @@
-.diceTotal{
+.diceTotal {
+  grid-column: 2 / 4;
   color: $color-light;
   background-color: $color-bg;
   z-index: 10;
@@ -9,15 +10,17 @@
 
 .diceGrid {
   display: flex;
+  grid-column: 2 / 4;
   flex-flow: row wrap;
   justify-content: center;
   align-content: center;
 
-  overflow-y: auto;  /* NEW */
+  overflow-y: auto;
   min-width: 0;
+  width: 100%;
 }
 
-.die{
+.die {
   background-color: $color-secondary;
   padding: 2rem;
   line-height: 1.1;
@@ -29,7 +32,7 @@
 
   animation: .5s ease-in 0s 1 dieRoll;
 
-  &-result{
+  &-result {
     font-size: 3rem;
     font-weight: 800;
     text-align: center;

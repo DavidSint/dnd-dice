@@ -1,20 +1,21 @@
 .filterScroller {
+  grid-row: 1 / 5;
   display: flex;
-  height: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
   list-style: none;
   text-align: center;
-  border-bottom: .2rem solid $color-tertiary;
+  border-right: .2rem solid $color-tertiary;
+  max-width: 30vw;
 
   &-container {
     display:flex;
-    margin: 0 auto
+    flex-direction: column;
   }
 
   &-item {
     display: block;
     padding: 0.5rem 1.5rem;
-    margin: 1rem 1rem;
+    margin: 0.5rem 1rem;
     background-color: $color-primary;
     border-radius: 2.5rem;
     box-shadow: 0 1rem 2rem rgba($color-tertiary, 0.3);
@@ -24,6 +25,8 @@
     border: 0;
     white-space: nowrap;
     user-select: none;
+    text-align: left;
+    width: min-content;
 
     &:focus,
     &:hover {
@@ -31,7 +34,7 @@
       transform: scale(1.1);
     }
 
-    &:active{
+    &:active {
       transform: scale(1.05);
     }
   }
