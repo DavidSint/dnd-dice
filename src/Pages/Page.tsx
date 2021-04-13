@@ -1,4 +1,5 @@
-import { useEffect, ReactElement } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect, ReactElement } from 'react';
 import { io } from 'socket.io-client';
 import { IRecievedRoll, ISavedRoll } from '../common/types';
 import {
@@ -12,20 +13,32 @@ import {
   RollButton
 } from '../Components'
 import { useParams } from 'react-router-dom';
-import { joinGame, useDice } from '../utils'
+import { joinGame, useDice } from '../utils';
+import confetti from 'canvas-confetti';
 
 if (!process.env.REACT_APP_WS_URI) throw new Error("Missing Websocket URI, please add to websocket in environment variables.")
 const socket = io(process.env.REACT_APP_WS_URI, {'forceNew':true})
 
 const dice = [4,6,8,10,12,20,100];
 
-// TODO Switch some props to use React Context
+function randomInRange(min: number, max: number) {
+  return Math.random() * (max - min) + min;
+}
+
 export default function App(): ReactElement {
   const { inGame, myName, setRolls, setInGame, setMod, setName, savedRolls, rolls, plannedDice } = useDice()
+
   useEffect(() => {
     joinGame(socket, inGame, myName)
     document.title = `D&D Dice - ${inGame}`
 
+    socket.on('connect', () => {
+      socket.emit('join game', {
+        game: inGame,
+        myName
+      });
+    });
+  
     return () => {
       if (inGame) {
         socket.emit('leave game', {
@@ -35,27 +48,61 @@ export default function App(): ReactElement {
         setRolls([])
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inGame]);
 
-  useEffect(() => {
-    document.title = "D&D Dice"
-  }, [])
-
+  const [latestRoll, setLatestRoll] = useState<IRecievedRoll | null>(null)
   useEffect(() => {
     socket.on('receive roll', (payload: IRecievedRoll) => {
-      setRolls(payload.roll)
-      setMod(payload.mod)
-      setName(payload.name)
-    });
-
-    socket.on('connect', () => {
-      socket.emit('join game', {
-        game: inGame,
-        myName
-      });
+      setLatestRoll(payload)
     });
   });
+
+  useEffect(() => {
+    if (latestRoll !== null) {
+      setRolls(latestRoll.roll)
+      setMod(latestRoll.mod)
+      setName(latestRoll.name)
+      // If the roll contains a natural max roll, show confetti on the page!
+      if (latestRoll.roll.filter(roll => roll.d === roll.value).length > 0) {
+        console.log('x')
+        const duration = 1 * 1000
+        const animationEnd = Date.now() + duration;
+        const defaults = {
+          startVelocity: 30,
+          spread: 360,
+          ticks: 60,
+          zIndex: 0
+        };
+
+        const interval: NodeJS.Timeout = setInterval(() => {
+          const timeLeft = animationEnd - Date.now();
+        
+          if (timeLeft <= 0) {
+            return clearInterval(interval);
+          }
+        
+          const particleCount = 50 * (timeLeft / duration);
+        
+          confetti({
+            ...defaults,
+            particleCount,
+            origin: {
+              x: randomInRange(0.1, 0.3),
+              y: Math.random() - 0.2
+            }
+          });
+          confetti({
+            ...defaults,
+            particleCount,
+            origin: {
+              x: randomInRange(0.7, 0.9),
+              y: Math.random() - 0.2
+            }
+          });
+        }, 250);
+      }
+    }
+  }, [latestRoll])
   interface IRouter {
     gameId: string
   }
