@@ -51,8 +51,15 @@ export default function App(): ReactElement {
   }, [inGame]);
 
   const [latestRoll, setLatestRoll] = useState<IRecievedRoll | null>(null)
+  const [rollHistory, setRollHistory] = useState<IRecievedRoll[]>([])
   useEffect(() => {
     socket.on('receive roll', (payload: IRecievedRoll) => {
+      /*
+        DO NOT PUT OTHER CODE IN HERE.
+        IF YOU WANT TO DO ACTIONS ON A NEW
+        ROLL PUT THE LOGIC IN A USE EFFECT
+        ON LATEST ROLE BELOW
+      */
       setLatestRoll(payload)
     });
   });
@@ -64,7 +71,6 @@ export default function App(): ReactElement {
       setName(latestRoll.name)
       // If the roll contains a natural max roll, show confetti on the page!
       if (latestRoll.roll.filter(roll => roll.d === roll.value).length > 0) {
-        console.log('x')
         const duration = 1 * 1000
         const animationEnd = Date.now() + duration;
         const defaults = {
@@ -101,6 +107,8 @@ export default function App(): ReactElement {
           });
         }, 250);
       }
+      if (rollHistory.length > 9) rollHistory.length = 9
+      setRollHistory([latestRoll, ...rollHistory])
     }
   }, [latestRoll])
   interface IRouter {
@@ -111,7 +119,7 @@ export default function App(): ReactElement {
   setInGame(gameId)
   return (
     <>
-      <Header />
+      <Header rollHistory={rollHistory}/>
 
       <div className="container">
         <main className="main">

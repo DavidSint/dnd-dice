@@ -18,7 +18,7 @@ export default function LoadGamePage(){
 
   return(
     <>
-      <Header />
+      <Header rollHistory={[]} />
 
       <div className="container">
         <main className="main">

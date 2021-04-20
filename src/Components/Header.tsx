@@ -1,7 +1,19 @@
 import { ReactElement } from "react";
 import { changeName, useDice } from "../utils";
+import { IRecievedRoll } from "../common/types";
 
-function Header(): ReactElement {
+function showHistory(history: IRecievedRoll[]) {
+  if (history.length > 0){
+    let output = "";
+    history.forEach((historicRoll: IRecievedRoll) => {
+      output += `${historicRoll.name}:  ${historicRoll.roll.reduce((acc, cur) => acc + cur.value, 0)} + ${historicRoll.mod} (${historicRoll.total})\n`;
+    })
+    return output;
+  }
+  return "No previous rolls recorded yet"
+}
+
+function Header({ rollHistory }: { rollHistory: IRecievedRoll[] }): ReactElement {
   const { inGame, name, setMyName, myName } = useDice();
 
   async function handleShare() {
@@ -39,13 +51,16 @@ function Header(): ReactElement {
         <button type="button" onClick={() => changeName(myName, setMyName)}>
           Change Name
         </button>
+        <button type="button" onClick={() => alert(showHistory(rollHistory))}>
+          Roll History
+        </button>
+        {inGame && <button type="button" style={{padding:'0rem 0.5rem'}} onClick={handleShare}>🔗</button>}
         <a href="/" style={{textDecoration:'none'}}>
           <button type="button" >
             {inGame && `Leave ${inGame}`}
             {!inGame && `Enter Game`}
           </button>
         </a>
-        {inGame && <button type="button" style={{padding:'0rem 0.5rem'}} onClick={handleShare}>🔗</button>}
       </div>
     </header>
   );
