@@ -10,7 +10,7 @@ function showHistory(history: IRecievedRoll[]) {
     })
     return output;
   }
-  return "No previous rolls recorded yet"
+  return "No rolls recorded yet"
 }
 
 function Header({ rollHistory }: { rollHistory: IRecievedRoll[] }): ReactElement {
