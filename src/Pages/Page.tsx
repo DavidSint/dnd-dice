@@ -26,7 +26,6 @@ function randomInRange(min: number, max: number) {
 }
 
 export default function Page(): ReactElement {
-console.dir({ Page: "run" }, { depth: null })
   const { inGame, myName, setRolls, setInGame, setMod, setName, savedRolls, rolls, plannedDice } = useDice()
 
   useEffect(() => {
