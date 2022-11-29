@@ -39,7 +39,7 @@ function Header({ rollHistory }: { rollHistory: IRecievedRoll[] }): ReactElement
     
   return (
     <header className="header">
-      <img src={`${process.env.PUBLIC_URL  }/logo192.png`} alt="Dice logo" className="header-logo" />
+      <img src={`/logo192.png`} alt="Dice logo" className="header-logo" />
       <h1 className="header-text h1">
         D&amp;D
         <span className="highlight">

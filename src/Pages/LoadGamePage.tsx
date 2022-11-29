@@ -1,16 +1,15 @@
 import { useEffect } from "react"
-import { useHistory } from "react-router"
+import { useNavigate } from "react-router"
 import { Header } from "../Components"
 import { useDice } from "../utils"
 
 export default function LoadGamePage(){
   const { setMod } = useDice()
-  const history = useHistory()
+  const navigate = useNavigate()
   useEffect(() => {
-    document.title = "D&D Dice"
     const gameId = prompt("Please enter a game ID", "")
     if (gameId !== null && gameId !== "") {
-      history.push(`/${gameId}`);
+      navigate(gameId);
     }
     setMod(0)
   // eslint-disable-next-line react-hooks/exhaustive-deps

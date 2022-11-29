@@ -16,8 +16,8 @@ import { useParams } from 'react-router-dom';
 import { joinGame, useDice } from '../utils';
 import confetti from 'canvas-confetti';
 
-if (!process.env.REACT_APP_WS_URI) throw new Error("Missing Websocket URI, please add to websocket in environment variables.")
-const socket = io(process.env.REACT_APP_WS_URI, {'forceNew':true})
+if (!import.meta.env.VITE_WS_URI) throw new Error("Missing Websocket URI, please add to websocket in environment variables.")
+const socket = io(import.meta.env.VITE_WS_URI, {'forceNew':true})
 
 const dice = [4,6,8,10,12,20,100];
 
@@ -25,7 +25,8 @@ function randomInRange(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
-export default function App(): ReactElement {
+export default function Page(): ReactElement {
+console.dir({ Page: "run" }, { depth: null })
   const { inGame, myName, setRolls, setInGame, setMod, setName, savedRolls, rolls, plannedDice } = useDice()
 
   useEffect(() => {
@@ -111,12 +112,14 @@ export default function App(): ReactElement {
       setRollHistory([latestRoll, ...rollHistory])
     }
   }, [latestRoll])
-  interface IRouter {
-    gameId: string
-  }
 
-  const { gameId } = useParams<IRouter>()
-  setInGame(gameId)
+  const { gameId } = useParams()
+  
+  useEffect(() => {
+    if (gameId) {
+      setInGame(gameId)
+    }
+  }, [gameId])
   return (
     <>
       <Header rollHistory={rollHistory}/>

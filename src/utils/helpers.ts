@@ -18,18 +18,6 @@ export function joinGame(socket: Socket, game: string, name: string): void {
   }
 }
 
-export function toggleGame(inGame: string, setInGame: Dispatch<React.SetStateAction<string>>, setMod: Dispatch<React.SetStateAction<number>>): void {
-  if (inGame) {
-    setInGame('')
-  } else {
-    const gameId = prompt("Please enter a game ID", "")
-    if (gameId !== null && gameId !== "") {
-      setInGame(gameId);
-    }
-    setMod(0)
-  }
-}
-
 export function resetAndRoll({ socket, dice, modifier, inGame, myName, setMod, setName }: IResetAndRoll): void {
   socket.emit('new roll', {
     game: inGame,

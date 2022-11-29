@@ -7,7 +7,6 @@ function SaveButton(): ReactElement {
   const { myMod, plannedDice: dice, savedRolls, setSavedRolls } = useDice()
   return (
     <button type="button" className="save" tabIndex={0} onClick={() => {
-      console.dir({ savedRolls }, { depth: null })
       const [...arr] = savedRolls;
       const saveName = prompt("Please enter a name for this type of roll");
       if (saveName) {

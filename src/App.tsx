@@ -8,13 +8,13 @@ import {
 import { DiceStateProvider } from './utils'
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route
 } from "react-router-dom";
 import { LoadGamePage, Page } from './Pages';
 
-if (!process.env.REACT_APP_WS_URI) throw new Error("Missing Websocket URI, please add to websocket in environment variables.")
-const socket = io(process.env.REACT_APP_WS_URI, {'forceNew':true})
+if (!import.meta.env.VITE_WS_URI) throw new Error("Missing Websocket URI, please add to websocket in environment variables.")
+const socket = io(import.meta.env.VITE_WS_URI, {'forceNew':true})
 
 function App(): ReactElement {
   const [inGame, setInGame] = useState('')
@@ -31,19 +31,15 @@ function App(): ReactElement {
   const states = { inGame, setInGame, myName, setMyName, name, setName, rolls, setRolls, mod, setMod, plannedDice, setPlannedDice, myMod, setMyMod, savedRolls, setSavedRolls, socket }
 
   return (
-    <Router>
-      <Switch>
-        <DiceStateProvider states={states}>
-          <Route exact path="/">
-            <LoadGamePage />
-          </Route>
-          <Route path="/:gameId">
-            <Page />
-          </Route>
-          <Footer />
-        </DiceStateProvider>
-      </Switch>
-    </Router>
+    <DiceStateProvider states={states}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoadGamePage />} />
+          <Route path="/:gameId" element={<Page />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </DiceStateProvider>
   );
 }
 

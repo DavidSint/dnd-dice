@@ -61,7 +61,7 @@ function Dice({ die }: IDice): ReactElement {
             removeDie(die);
           }}
         >
-          <img src={`${process.env.PUBLIC_URL}/dice/d${die}.png`} alt={`Roll a d${die}`} className="dice-image"/>
+          <img src={`/dice/d${die}.png`} alt={`Roll a d${die}`} className="dice-image"/>
           <p className={`dice-text ${die === 4 && `dice-text--d${die}`}`} aria-hidden="true">{`D${die}`}</p>
           {dCount.count !== 0 &&
             <span className="dice-badge">{dCount.count}</span>
