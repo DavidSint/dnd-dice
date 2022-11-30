@@ -13,38 +13,38 @@ export interface ISavedRoll {
   dice: number[];
 }
 export interface IPlannedDie {
-  d: number,
-  count: number
+  d: number;
+  count: number;
 }
 export interface IRecievedRoll {
-  game: string,
-  name: string,
-  roll: IRoll[],
-  mod: number,
-  total: number
+  game: string;
+  name: string;
+  roll: IRoll[];
+  mod: number;
+  total: number;
 }
 export interface IResetAndRoll {
-  socket: Socket,
-  dice: number[],
-  modifier: number,
-  inGame: string,
-  myName: string,
-  setMod: Dispatch<React.SetStateAction<number>>,
-  setName: Dispatch<React.SetStateAction<string>>
+  socket: Socket;
+  dice: number[];
+  modifier: number;
+  inGame: string;
+  myName: string;
+  setMod: Dispatch<React.SetStateAction<number>>;
+  setName: Dispatch<React.SetStateAction<string>>;
 }
 
 export interface IRollDice {
-  plannedDice: IPlannedDie[],
-  mod: number,
-  inGame: string,
-  myName: string,
-  setMod: Dispatch<React.SetStateAction<number>>,
-  setName: Dispatch<React.SetStateAction<string>>,
-  socket: Socket,
+  plannedDice: IPlannedDie[];
+  mod: number;
+  inGame: string;
+  myName: string;
+  setMod: Dispatch<React.SetStateAction<number>>;
+  setName: Dispatch<React.SetStateAction<string>>;
+  socket: Socket;
 }
 
 export interface IRemoveASave {
-  id: string,
-  savedRolls: ISavedRoll[],
-  setSavedRolls: Dispatch<React.SetStateAction<ISavedRoll[]>>
+  id: string;
+  savedRolls: ISavedRoll[];
+  setSavedRolls: Dispatch<React.SetStateAction<ISavedRoll[]>>;
 }

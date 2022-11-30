@@ -1,7 +1,4 @@
-import Page from './Page'
-import LoadGamePage from './LoadGamePage'
+import Page from "./Page";
+import LoadGamePage from "./LoadGamePage";
 
-export {
-  Page,
-  LoadGamePage
-}
+export { Page, LoadGamePage };

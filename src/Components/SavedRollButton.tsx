@@ -1,15 +1,15 @@
-import { ReactElement } from 'react';
-import { ISavedRoll } from '../common/types'
-import { removeASave, resetAndRoll, useDice } from '../utils';
+import { ReactElement } from "react";
+import { ISavedRoll } from "../common/types";
+import { removeASave, resetAndRoll, useDice } from "../utils";
 
-function SavedRollButton({ savedRoll }: {savedRoll: ISavedRoll}): ReactElement {
-  const {inGame, myName, setMod, setName, savedRolls, setSavedRolls, socket } = useDice();
+function SavedRollButton({ savedRoll }: { savedRoll: ISavedRoll }): ReactElement {
+  const { inGame, myName, setMod, setName, savedRolls, setSavedRolls, socket } = useDice();
   return (
     <button
       type="button"
       className="filterScroller-item"
       tabIndex={0}
-      onClick={ () => {
+      onClick={() => {
         resetAndRoll({
           dice: savedRoll.dice,
           modifier: savedRoll.mod,
@@ -17,7 +17,7 @@ function SavedRollButton({ savedRoll }: {savedRoll: ISavedRoll}): ReactElement {
           myName,
           setMod,
           setName,
-          socket
+          socket,
         });
       }}
       onContextMenu={(e) => {
@@ -25,7 +25,7 @@ function SavedRollButton({ savedRoll }: {savedRoll: ISavedRoll}): ReactElement {
         removeASave({
           id: savedRoll.id,
           savedRolls,
-          setSavedRolls
+          setSavedRolls,
         });
       }}
     >

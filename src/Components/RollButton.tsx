@@ -1,14 +1,14 @@
 import { ReactElement } from "react";
-import { useDice, rollDice } from "../utils"
+import { useDice, rollDice } from "../utils";
 
 export default function RollButton(): ReactElement {
   const { plannedDice, myMod, setMod, myName, setName, inGame, socket } = useDice();
-  return(
+  return (
     <button
-    type="button"
+      type="button"
       className="roll"
       tabIndex={0}
-      onClick={ () => {
+      onClick={() => {
         rollDice({
           plannedDice,
           mod: myMod,
@@ -16,11 +16,11 @@ export default function RollButton(): ReactElement {
           myName,
           setMod,
           setName,
-          socket
-        })
+          socket,
+        });
       }}
-      >
+    >
       Roll
     </button>
-  )
+  );
 }
