@@ -17,7 +17,7 @@ function SaveButton(): ReactElement {
             id: `${saveName}@${new Date().getTime()}`,
             name: saveName,
             mod: myMod || 0,
-            dice: dice ? dice.map((die) => [...Array(die.count)].map(() => die.d)).flat() : [],
+            dice: dice ? dice.flatMap((die) => [...Array(die.count)].map(() => die.d)) : [],
           };
           arr.push(newSavedRoll);
           setSavedRolls(arr);
