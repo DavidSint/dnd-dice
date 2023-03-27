@@ -22,7 +22,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",
-    "socket.io-client": "^4.5.4"
+    "socket.io-client": "^4.6.1"
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.6.0",
