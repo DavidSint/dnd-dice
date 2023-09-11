@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import { Socket } from "socket.io-client";
-import { IResetAndRoll, IRollDice, IRemoveASave, ISavedRoll } from "../common/types";
+import { IRemoveASave, IResetAndRoll, IRollDice, ISavedRoll } from "../common/types";
 
 export function changeName(myName: string, setMyName: Dispatch<React.SetStateAction<string>>): void {
   const name = prompt("Please enter your character name", myName || "Anon");

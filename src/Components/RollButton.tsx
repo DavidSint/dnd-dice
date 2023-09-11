@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { useDice, rollDice } from "../utils";
+import { rollDice, useDice } from "../utils";
 
 export default function RollButton(): ReactElement {
   const { plannedDice, myMod, setMod, myName, setName, inGame, socket } = useDice();

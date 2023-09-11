@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Dispatch } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 
 export default function usePersistedState<T>(key: string, defaultValue: T): [T, Dispatch<React.SetStateAction<T>>] {
   const [state, setState] = useState(() => {

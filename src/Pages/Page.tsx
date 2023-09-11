@@ -1,11 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, ReactElement } from "react";
-import { io } from "socket.io-client";
-import { IRecievedRoll, ISavedRoll } from "../common/types";
-import { Header, DiceRoll, DiceTotal, SaveButton, Dice, ModButton, SavedRollButton, RollButton } from "../Components";
-import { useParams } from "react-router-dom";
-import { joinGame, useDice } from "../utils";
 import confetti from "canvas-confetti";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { ReactElement, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { io } from "socket.io-client";
+import { Dice, DiceRoll, DiceTotal, Header, ModButton, RollButton, SaveButton, SavedRollButton } from "../Components";
+import { IRecievedRoll, ISavedRoll } from "../common/types";
+import { joinGame, useDice } from "../utils";
 
 if (!import.meta.env.VITE_WS_URI) {
   throw new Error("Missing Websocket URI, please add to websocket in environment variables.");
