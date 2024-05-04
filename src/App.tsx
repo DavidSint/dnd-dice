@@ -1,11 +1,11 @@
-import { useState, ReactElement } from "react";
+import { ReactElement, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { io } from "socket.io-client";
+import { Footer } from "./Components";
+import { LoadGamePage, Page } from "./Pages";
 import usePersistedState from "./common/persistedState";
 import { IPlannedDie, IRoll, ISavedRoll } from "./common/types";
-import { Footer } from "./Components";
 import { DiceStateProvider } from "./utils";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { LoadGamePage, Page } from "./Pages";
 
 if (!import.meta.env.VITE_WS_URI) {
   throw new Error("Missing Websocket URI, please add to websocket in environment variables.");

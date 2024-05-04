@@ -15,24 +15,24 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint:fix": "rome check . --apply && rome format . --write"
+    "lint:fix": "biome check ./src --apply-unsafe && biome format ./src --write"
   },
   "dependencies": {
-    "canvas-confetti": "^1.6.0",
+    "canvas-confetti": "^1.6.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.12.0",
+    "react-router-dom": "^6.13.0",
     "socket.io-client": "^4.7.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.1.2",
     "@types/canvas-confetti": "^1.6.0",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
-    "rome": "^12.0.0",
     "sass": "^1.60.0",
     "typescript": "^5.0.3",
-    "vite": "^4.2.3"
+    "vite": "^4.5.3"
   }
 }

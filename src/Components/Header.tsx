@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
-import { changeName, useDice } from "../utils";
 import { IRecievedRoll } from "../common/types";
+import { changeName, useDice } from "../utils";
 
 function showHistory(history: IRecievedRoll[]) {
   if (history.length > 0) {
