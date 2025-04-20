@@ -1,32 +1,35 @@
+import { useAtomValue, useSetAtom } from "jotai";
 import { ReactElement } from "react";
-import { ISavedRoll } from "../common/types";
-import { removeASave, resetAndRoll, useDice } from "../utils";
+import { inGameAtom, myNameAtom, savedRollsAtom, socketAtom } from "../atoms";
+import { SavedRoll } from "../common/types";
+import { emitNewRoll, filterSavedRolls } from "../utils/helpers";
 
-function SavedRollButton({ savedRoll }: { savedRoll: ISavedRoll }): ReactElement {
-  const { inGame, myName, setMod, setName, savedRolls, setSavedRolls, socket } = useDice();
+function SavedRollButton({ savedRoll }: { savedRoll: SavedRoll }): ReactElement {
+  const inGame = useAtomValue(inGameAtom);
+  const myName = useAtomValue(myNameAtom);
+  const socket = useAtomValue(socketAtom);
+  const savedRolls = useAtomValue(savedRollsAtom);
+  const setSavedRolls = useSetAtom(savedRollsAtom);
+
   return (
     <button
       type="button"
       className="filterScroller-item"
       tabIndex={0}
+      data-testid={`saved-roll-${savedRoll.name}`}
       onClick={() => {
-        resetAndRoll({
+        emitNewRoll({
+          socket,
           dice: savedRoll.dice,
           modifier: savedRoll.mod,
           inGame,
           myName,
-          setMod,
-          setName,
-          socket,
         });
       }}
       onContextMenu={(e) => {
         e.preventDefault();
-        removeASave({
-          id: savedRoll.id,
-          savedRolls,
-          setSavedRolls,
-        });
+        const updatedRolls = filterSavedRolls({ id: savedRoll.id, savedRolls });
+        setSavedRolls(updatedRolls);
       }}
     >
       {savedRoll.name}

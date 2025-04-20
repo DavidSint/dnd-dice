@@ -1,8 +1,9 @@
+import { useAtomValue } from "jotai";
 import { ReactElement } from "react";
-import { useDice } from "../utils";
+import { rollsAtom } from "../atoms";
 
 function DiceRoll(): ReactElement {
-  const { rolls } = useDice();
+  const rolls = useAtomValue(rollsAtom);
   return (
     <>
       {rolls.map((roll) => (

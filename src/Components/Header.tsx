@@ -1,22 +1,25 @@
+import { useAtom, useAtomValue } from "jotai";
 import { ReactElement } from "react";
-import { IRecievedRoll } from "../common/types";
-import { changeName, useDice } from "../utils";
+import { inGameAtom, myNameAtom } from "../atoms";
+import { ReceivedRoll } from "../common/types";
+import { promptForName } from "../utils/helpers";
 
-function showHistory(history: IRecievedRoll[]) {
+function showHistory(history: ReceivedRoll[]) {
   if (history.length > 0) {
     let output = "";
-    history.forEach((historicRoll: IRecievedRoll) => {
-      output += `${historicRoll.name}:  ${historicRoll.roll.reduce((acc, cur) => acc + cur.value, 0)} + ${
+    for (const historicRoll of history) {
+      output += `${historicRoll.name}: ${historicRoll.roll.reduce((acc, cur) => acc + cur.value, 0)} + ${
         historicRoll.mod
       } (${historicRoll.total})\n`;
-    });
+    }
     return output;
   }
   return "No rolls recorded yet";
 }
 
-function Header({ rollHistory }: { rollHistory: IRecievedRoll[] }): ReactElement {
-  const { inGame, name, setMyName, myName } = useDice();
+function Header({ rollHistory }: { rollHistory: ReceivedRoll[] }): ReactElement {
+  const [myName, setMyName] = useAtom(myNameAtom);
+  const inGame = useAtomValue(inGameAtom);
 
   async function handleShare() {
     if (navigator.share) {
@@ -42,25 +45,35 @@ function Header({ rollHistory }: { rollHistory: IRecievedRoll[] }): ReactElement
   return (
     <header className="header">
       <img src={"/logo192.png"} alt="Dice logo" className="header-logo" />
-      <h1 className="header-text h1">
+      <h1 className="header-text h1" data-testid="heading">
         D&amp;D
         <span className="highlight">Dice</span>
-        {name ? ` - ${name}` : ""}
+        {inGame ? ` - ${inGame}` : ""}
       </h1>
       <div style={{ display: "flex" }}>
-        <button type="button" onClick={() => changeName(myName, setMyName)}>
-          Change Name
+        <button
+          type="button"
+          data-testid="change-name"
+          onClick={() => {
+            let newName: string | null = myName;
+            newName = promptForName(myName) ?? myName;
+            if (newName !== null) {
+              setMyName(newName);
+            }
+          }}
+        >
+          {myName}
         </button>
-        <button type="button" onClick={() => alert(showHistory(rollHistory))}>
+        <button type="button" data-testid="roll-history" onClick={() => alert(showHistory(rollHistory))}>
           Roll History
         </button>
         {inGame && (
-          <button type="button" style={{ padding: "0rem 0.5rem" }} onClick={handleShare}>
+          <button type="button" data-testid="share-link" style={{ padding: "0rem 0.5rem" }} onClick={handleShare}>
             🔗
           </button>
         )}
         <a href="/" style={{ textDecoration: "none" }}>
-          <button type="button">
+          <button type="button" data-testid="leave-game">
             {inGame && `Leave ${inGame}`}
             {!inGame && "Enter Game"}
           </button>

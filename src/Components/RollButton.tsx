@@ -1,22 +1,29 @@
+import { useAtomValue, useSetAtom } from "jotai";
 import { ReactElement } from "react";
-import { rollDice, useDice } from "../utils";
+import { inGameAtom, myModAtom, myNameAtom, plannedDiceAtom, socketAtom } from "../atoms";
+import { rollPlannedDice } from "../utils/helpers";
 
 export default function RollButton(): ReactElement {
-  const { plannedDice, myMod, setMod, myName, setName, inGame, socket } = useDice();
+  const plannedDice = useAtomValue(plannedDiceAtom);
+  const myMod = useAtomValue(myModAtom);
+  const myName = useAtomValue(myNameAtom);
+  const inGame = useAtomValue(inGameAtom);
+  const socket = useAtomValue(socketAtom);
+  const setPlannedDice = useSetAtom(plannedDiceAtom);
+
   return (
     <button
       type="button"
       className="roll"
       tabIndex={0}
+      data-testid="roll"
       onClick={() => {
-        rollDice({
+        rollPlannedDice({
+          socket,
           plannedDice,
           mod: myMod,
           inGame,
           myName,
-          setMod,
-          setName,
-          socket,
         });
       }}
     >

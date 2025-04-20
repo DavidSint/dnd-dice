@@ -1,18 +1,23 @@
+import { useSetAtom } from "jotai";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Header } from "../Components";
-import { useDice } from "../utils";
+import { modAtom } from "../atoms";
 
 export default function LoadGamePage() {
-  const { setMod } = useDice();
+  const setMod = useSetAtom(modAtom);
   const navigate = useNavigate();
+
   useEffect(() => {
-    const gameId = prompt("Please enter a game ID", "");
-    if (gameId !== null && gameId !== "") {
-      navigate(gameId);
-    }
     setMod(0);
-  }, []);
+    let gameId = prompt("Please enter a game ID", "");
+    while (!gameId) {
+      gameId = prompt("You must enter a game ID. Please enter a game ID or close the tab/window.", "");
+    }
+    if (gameId !== null && gameId !== "") {
+      navigate(`/${gameId.trim()}`);
+    }
+  }, [navigate, setMod]);
 
   return (
     <>

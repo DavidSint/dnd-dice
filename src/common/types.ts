@@ -1,29 +1,29 @@
 import { Dispatch } from "react";
 import { Socket } from "socket.io-client";
 
-export interface IRoll {
+export interface Roll {
   id: string;
   value: number;
   d: number;
 }
-export interface ISavedRoll {
+export interface SavedRoll {
   id: string;
   name: string;
   mod: number;
   dice: number[];
 }
-export interface IPlannedDie {
+export interface PlannedDie {
   d: number;
   count: number;
 }
-export interface IRecievedRoll {
+export interface ReceivedRoll {
   game: string;
   name: string;
-  roll: IRoll[];
+  roll: Roll[];
   mod: number;
   total: number;
 }
-export interface IResetAndRoll {
+export interface ResetAndRoll {
   socket: Socket;
   dice: number[];
   modifier: number;
@@ -33,8 +33,8 @@ export interface IResetAndRoll {
   setName: Dispatch<React.SetStateAction<string>>;
 }
 
-export interface IRollDice {
-  plannedDice: IPlannedDie[];
+export interface RollDice {
+  plannedDice: PlannedDie[];
   mod: number;
   inGame: string;
   myName: string;
@@ -43,8 +43,8 @@ export interface IRollDice {
   socket: Socket;
 }
 
-export interface IRemoveASave {
+export interface RemoveASave {
   id: string;
-  savedRolls: ISavedRoll[];
-  setSavedRolls: Dispatch<React.SetStateAction<ISavedRoll[]>>;
+  savedRolls: SavedRoll[];
+  setSavedRolls: Dispatch<React.SetStateAction<SavedRoll[]>>;
 }

@@ -1,16 +1,20 @@
 import confetti from "canvas-confetti";
-/* eslint-disable react-hooks/exhaustive-deps */
+import { useAtomValue, useSetAtom } from "jotai";
 import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { io } from "socket.io-client";
 import { Dice, DiceRoll, DiceTotal, Header, ModButton, RollButton, SaveButton, SavedRollButton } from "../Components";
-import { IRecievedRoll, ISavedRoll } from "../common/types";
-import { joinGame, useDice } from "../utils";
-
-if (!import.meta.env.VITE_WS_URI) {
-  throw new Error("Missing Websocket URI, please add to websocket in environment variables.");
-}
-const socket = io(import.meta.env.VITE_WS_URI, { forceNew: true });
+import {
+  inGameAtom,
+  latestRollAtom,
+  modAtom,
+  myNameAtom,
+  nameAtom,
+  plannedDiceAtom,
+  rollsAtom,
+  savedRollsAtom,
+  socketAtom,
+} from "../atoms";
+import { ReceivedRoll, SavedRoll } from "../common/types";
 
 const dice = [4, 6, 8, 10, 12, 20, 100];
 
@@ -18,35 +22,35 @@ function randomInRange(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
-export default function Page(): ReactElement {
-  const { inGame, myName, setRolls, setInGame, setMod, setName, savedRolls, rolls, plannedDice } = useDice();
+// TODO: Create a dedicated useSocketHandler hook to manage socket logic
+function SocketHandler() {
+  const socket = useAtomValue(socketAtom);
+  const inGame = useAtomValue(inGameAtom);
+  const myName = useAtomValue(myNameAtom);
+  const setLatestRoll = useSetAtom(latestRollAtom);
+  const setRolls = useSetAtom(rollsAtom);
 
   useEffect(() => {
-    joinGame(socket, inGame, myName);
-    document.title = `D&D Dice - ${inGame}`;
+    if (!socket || !inGame || !myName) return;
 
-    socket.on("connect", () => {
-      socket.emit("join game", {
-        game: inGame,
-        myName,
-      });
-    });
+    const handleConnect = () => {
+      socket.emit("join game", { game: inGame, myName });
+    };
+
+    socket.emit("join game", { game: inGame, myName });
+    socket.on("connect", handleConnect);
 
     return () => {
-      if (inGame) {
-        socket.emit("leave game", {
-          game: inGame,
-          myName,
-        });
-        setRolls([]);
-      }
+      socket.emit("leave game", { game: inGame, myName });
+      socket.off("connect", handleConnect);
+      setRolls([]);
     };
-  }, [inGame]);
+  }, [socket, inGame, myName, setRolls]);
 
-  const [latestRoll, setLatestRoll] = useState<IRecievedRoll | null>(null);
-  const [rollHistory, setRollHistory] = useState<IRecievedRoll[]>([]);
   useEffect(() => {
-    socket.on("receive roll", (payload: IRecievedRoll) => {
+    if (!socket) return;
+
+    const handleReceiveRoll = (payload: ReceivedRoll) => {
       /*
         DO NOT PUT OTHER CODE IN HERE.
         IF YOU WANT TO DO ACTIONS ON A NEW
@@ -54,8 +58,31 @@ export default function Page(): ReactElement {
         ON LATEST ROLE BELOW
       */
       setLatestRoll(payload);
-    });
-  });
+    };
+
+    socket.on("receive roll", handleReceiveRoll);
+
+    return () => {
+      socket.off("receive roll", handleReceiveRoll);
+    };
+  }, [socket, setLatestRoll]);
+
+  return null;
+}
+
+export default function Page(): ReactElement {
+  const inGame = useAtomValue(inGameAtom);
+  const savedRolls = useAtomValue(savedRollsAtom);
+  const rolls = useAtomValue(rollsAtom);
+  const plannedDice = useAtomValue(plannedDiceAtom);
+  const latestRoll = useAtomValue(latestRollAtom);
+
+  const setRolls = useSetAtom(rollsAtom);
+  const setMod = useSetAtom(modAtom);
+  const setName = useSetAtom(nameAtom);
+  const setInGame = useSetAtom(inGameAtom);
+
+  const [rollHistory, setRollHistory] = useState<ReceivedRoll[]>([]);
 
   useEffect(() => {
     if (latestRoll !== null) {
@@ -103,7 +130,11 @@ export default function Page(): ReactElement {
       if (rollHistory.length > 9) {
         rollHistory.length = 9;
       }
-      setRollHistory([latestRoll, ...rollHistory]);
+      const newHistory = [latestRoll, ...rollHistory];
+      if (newHistory.length > 10) {
+        newHistory.length = 10;
+      }
+      setRollHistory(newHistory);
     }
   }, [latestRoll]);
 
@@ -112,10 +143,13 @@ export default function Page(): ReactElement {
   useEffect(() => {
     if (gameId) {
       setInGame(gameId);
+      document.title = `D&D Dice - ${gameId}`;
     }
-  }, [gameId]);
+  }, [gameId, setInGame]);
+
   return (
     <>
+      <SocketHandler />
       <Header rollHistory={rollHistory} />
 
       <div className="container">
@@ -123,7 +157,7 @@ export default function Page(): ReactElement {
           <div className="filterScroller">
             <div className="filterScroller-container">
               {inGame &&
-                savedRolls.map((savedRoll: ISavedRoll) => <SavedRollButton key={savedRoll.id} savedRoll={savedRoll} />)}
+                savedRolls.map((savedRoll: SavedRoll) => <SavedRollButton key={savedRoll.id} savedRoll={savedRoll} />)}
             </div>
           </div>
           <div className="diceTotal">{rolls && <DiceTotal />}</div>

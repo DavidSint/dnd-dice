@@ -1,16 +1,21 @@
-// eslint-disable-next-line no-use-before-define
+import { useAtom, useAtomValue } from "jotai";
 import { ReactElement } from "react";
-import { useDice } from "../utils";
+import { myModAtom, plannedDiceAtom, savedRollsAtom } from "../atoms";
 
 function SaveButton(): ReactElement {
-  const { myMod, plannedDice: dice, savedRolls, setSavedRolls } = useDice();
+  const myMod = useAtomValue(myModAtom);
+  const dice = useAtomValue(plannedDiceAtom);
+  const [savedRolls, setSavedRolls] = useAtom(savedRollsAtom);
+  if (dice.length <= 0) {
+    return <></>;
+  }
   return (
     <button
       type="button"
       className="save"
       tabIndex={0}
+      data-testid="save"
       onClick={() => {
-        const [...arr] = savedRolls;
         const saveName = prompt("Please enter a name for this type of roll");
         if (saveName) {
           const newSavedRoll = {
@@ -19,8 +24,7 @@ function SaveButton(): ReactElement {
             mod: myMod || 0,
             dice: dice ? dice.flatMap((die) => [...Array(die.count)].map(() => die.d)) : [],
           };
-          arr.push(newSavedRoll);
-          setSavedRolls(arr);
+          setSavedRolls([...savedRolls, newSavedRoll]);
         }
       }}
     >

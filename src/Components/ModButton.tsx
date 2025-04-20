@@ -1,8 +1,9 @@
+import { useAtom } from "jotai";
 import { ReactElement } from "react";
-import { useDice } from "../utils";
+import { myModAtom } from "../atoms";
 
 function ModButton(): ReactElement {
-  const { myMod, setMyMod } = useDice();
+  const [myMod, setMyMod] = useAtom(myModAtom);
   return (
     <button
       type="button"
@@ -12,6 +13,7 @@ function ModButton(): ReactElement {
         e.preventDefault();
         setMyMod(0);
       }}
+      data-testid="mod"
       onClick={() => {
         const modifier = prompt("Please enter a modifier");
         if (modifier) {

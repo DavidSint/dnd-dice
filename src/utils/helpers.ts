@@ -1,40 +1,46 @@
-import { Dispatch } from "react";
 import { Socket } from "socket.io-client";
-import { IRemoveASave, IResetAndRoll, IRollDice, ISavedRoll } from "../common/types";
+import { PlannedDie, SavedRoll } from "../common/types";
 
-export function changeName(myName: string, setMyName: Dispatch<React.SetStateAction<string>>): void {
-  const name = prompt("Please enter your character name", myName || "Anon");
+export function promptForName(currentName: string): string | null {
+  const name = prompt("Please enter your character name", currentName || "Anon");
   if (name !== null && name !== "") {
-    setMyName(name);
+    return name;
   }
+  return null;
 }
 
-export function joinGame(socket: Socket, game: string, name: string): void {
-  if (game) {
-    socket.emit("join game", {
-      game,
-      name,
-    });
-  }
+interface NewRollArgs {
+  socket: Socket;
+  dice: number[];
+  modifier: number;
+  inGame: string;
+  myName: string;
 }
-
-export function resetAndRoll({ socket, dice, modifier, inGame, myName, setMod, setName }: IResetAndRoll): void {
+export function emitNewRoll({ socket, dice, modifier, inGame, myName }: NewRollArgs): void {
   socket.emit("new roll", {
     game: inGame,
     name: myName,
     dice,
     mod: modifier,
   });
-  setMod(modifier ?? 0);
-  setName(myName);
 }
 
-export function rollDice({ plannedDice, mod, inGame, myName, setMod, setName, socket }: IRollDice): void {
-  const dice = plannedDice.map((die) => [...Array(die.count)].map((_) => die.d));
-  resetAndRoll({ dice: dice.flat(), modifier: mod, inGame, myName, setMod, setName, socket });
+interface RollPlannedDiceArgs {
+  socket: Socket;
+  plannedDice: PlannedDie[];
+  mod: number;
+  inGame: string;
+  myName: string;
+}
+export function rollPlannedDice({ socket, plannedDice, mod, inGame, myName }: RollPlannedDiceArgs): void {
+  const dice = plannedDice.flatMap((die) => [...Array(die.count)].map(() => die.d));
+  emitNewRoll({ socket, dice, modifier: mod, inGame, myName });
 }
 
-export function removeASave({ id, savedRolls, setSavedRolls }: IRemoveASave): void {
-  const [...arr] = savedRolls;
-  setSavedRolls(arr.filter((save: ISavedRoll) => save.id !== id));
+interface FilterSavedRollsArgs {
+  id: string;
+  savedRolls: SavedRoll[];
+}
+export function filterSavedRolls({ id, savedRolls }: FilterSavedRollsArgs): SavedRoll[] {
+  return savedRolls.filter((save: SavedRoll) => save.id !== id);
 }
