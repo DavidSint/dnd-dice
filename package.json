@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@playwright/test": "^1.52.0",
+    "@playwright/test": "^1.56.1",
     "@types/canvas-confetti": "^1.6.0",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.31",
