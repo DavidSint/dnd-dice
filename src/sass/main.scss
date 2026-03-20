@@ -1,18 +1,14 @@
-@import
-"abstracts/variables";
+@use "abstracts/variables";
 
-@import
-"base/animations",
-"base/base",
-"base/typography";
+@use "base/animations";
+@use "base/base";
+@use "base/typography";
 
-@import
-"components/button",
-"components/dice",
-"components/dice-grid",
-"components/filterScroller";
+@use "components/button";
+@use "components/dice";
+@use "components/dice-grid";
+@use "components/filterScroller";
 
-@import
-"layout/footer",
-"layout/main",
-"layout/header";
+@use "layout/footer";
+@use "layout/main";
+@use "layout/header";

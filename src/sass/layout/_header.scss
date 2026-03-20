@@ -1,3 +1,5 @@
+@use "../abstracts/variables";
+
 .header {
   display: flex;
   flex-flow: row nowrap;
@@ -7,9 +9,9 @@
   width: auto;
 
   margin: 0rem 0rem;
-  border-top: .1rem solid $color-bg;
-  background-color: $color-bg;
-  border-bottom: .3rem solid $color-tertiary;
+  border-top: .1rem solid variables.$color-bg;
+  background-color: variables.$color-bg;
+  border-bottom: .3rem solid variables.$color-tertiary;
   overflow-y: auto;
 
   &-logo {

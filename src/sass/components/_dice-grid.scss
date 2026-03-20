@@ -1,7 +1,9 @@
+@use "../abstracts/variables";
+
 .diceTotal {
   grid-column: 2 / 4;
-  color: $color-light;
-  background-color: $color-bg;
+  color: variables.$color-light;
+  background-color: variables.$color-bg;
   z-index: 10;
   display: flex;
   justify-content: space-around;
@@ -21,14 +23,14 @@
 }
 
 .die {
-  background-color: $color-secondary;
+  background-color: variables.$color-secondary;
   padding: 2rem;
   line-height: 1.1;
   margin: 1rem;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  color: $color-dark;
+  color: variables.$color-dark;
 
   animation: .5s ease-in 0s 1 dieRoll;
 
@@ -36,6 +38,6 @@
     font-size: 3rem;
     font-weight: 800;
     text-align: center;
-    color: $color-light;
+    color: variables.$color-light;
   }
 }

@@ -1,3 +1,5 @@
+@use "../abstracts/variables";
+
 *,
 *::after,
 *::before {
@@ -15,10 +17,10 @@ html {
 body {
   box-sizing: border-box;
 
-  background-color: $color-light;
+  background-color: variables.$color-light;
 }
 
 ::selection {
-  background-color: $color-secondary;
-  color: $color-light;
+  background-color: variables.$color-secondary;
+  color: variables.$color-light;
 }

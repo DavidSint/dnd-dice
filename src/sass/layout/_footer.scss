@@ -1,3 +1,5 @@
+@use "../abstracts/variables";
+
 .footer {
   display: flex;
   flex-flow: row nowrap;
@@ -13,10 +15,10 @@
   z-index: -1;
 
   margin: 0;
-  border-top: .3rem solid $color-tertiary;
-  background-image: linear-gradient($color-bg, $color-dark);
-  border-bottom: 1px solid $color-dark;
-  color: $color-light;
+  border-top: .3rem solid variables.$color-tertiary;
+  background-image: linear-gradient(variables.$color-bg, variables.$color-dark);
+  border-bottom: 1px solid variables.$color-dark;
+  color: variables.$color-light;
 
   &-text {
     justify-self: center;

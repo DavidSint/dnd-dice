@@ -1,13 +1,15 @@
+@use "../abstracts/variables";
+
 button {
   display: block;
   padding: 0.3rem 1.5rem;
   margin: 0.5rem 1rem;
-  background-color: $color-primary;
+  background-color: variables.$color-primary;
   border-radius: 2.5rem;
-  color: $color-light;
+  color: variables.$color-light;
   font-weight: 500;
-  box-shadow: 0 1rem 2rem rgba($color-tertiary, 0.3);
-  border: .3rem outset $color-secondary;
+  box-shadow: 0 1rem 2rem rgba(variables.$color-tertiary, 0.3);
+  border: .3rem outset variables.$color-secondary;
   cursor: pointer;
   white-space: nowrap;
 
