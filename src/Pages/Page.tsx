@@ -2,7 +2,6 @@ import confetti from "canvas-confetti";
 import { useAtomValue, useSetAtom } from "jotai";
 import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Dice, DiceRoll, DiceTotal, Header, ModButton, RollButton, SaveButton, SavedRollButton } from "../Components";
 import {
   inGameAtom,
   latestRollAtom,
@@ -14,6 +13,7 @@ import {
   savedRollsAtom,
   socketAtom,
 } from "../atoms";
+import { Dice, DiceRoll, DiceTotal, Header, ModButton, RollButton, SaveButton, SavedRollButton } from "../Components";
 import { ReceivedRoll, SavedRoll } from "../common/types";
 
 const dice = [4, 6, 8, 10, 12, 20, 100];

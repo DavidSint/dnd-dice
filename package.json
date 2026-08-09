@@ -9,7 +9,7 @@
     "url": "https://github.com/DavidSint/dnd-dice.git"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=20.19.0"
   },
   "scripts": {
     "dev": "vite",
@@ -20,23 +20,23 @@
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
-    "jotai": "^2.18.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-router-dom": "^7.13.1",
+    "jotai": "^2.20.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2",
     "socket.io-client": "^4.8.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.8",
-    "@playwright/test": "^1.58.2",
+    "@biomejs/biome": "2.5.7",
+    "@playwright/test": "^1.62.1",
     "@types/canvas-confetti": "^1.9.0",
-    "@types/node": "^25.5.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "dotenv": "^17.3.1",
-    "sass": "^1.98.0",
-    "typescript": "^5.9.3",
-    "vite": "^8.0.1"
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.0.5",
+    "dotenv": "^17.4.2",
+    "sass": "^1.102.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.1"
   }
 }

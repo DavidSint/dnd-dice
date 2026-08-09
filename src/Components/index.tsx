@@ -8,4 +8,4 @@ import RollButton from "./RollButton";
 import SaveButton from "./SaveButton";
 import SavedRollButton from "./SavedRollButton";
 
-export { Header, DiceRoll, DiceTotal, Footer, SaveButton, Dice, ModButton, SavedRollButton, RollButton };
+export { Dice, DiceRoll, DiceTotal, Footer, Header, ModButton, RollButton, SaveButton, SavedRollButton };

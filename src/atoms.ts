@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import { Socket, io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import { PlannedDie, ReceivedRoll, Roll, SavedRoll } from "./common/types";
 
 const WS_URI = import.meta.env.VITE_WS_URI;

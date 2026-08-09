@@ -1,8 +1,8 @@
 import { useSetAtom } from "jotai";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { Header } from "../Components";
 import { modAtom } from "../atoms";
+import { Header } from "../Components";
 
 export default function LoadGamePage() {
   const setMod = useSetAtom(modAtom);
